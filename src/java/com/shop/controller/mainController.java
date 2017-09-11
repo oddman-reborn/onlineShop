@@ -2,6 +2,7 @@
 package com.shop.controller;
 
 import com.shop.entity.User;
+import com.shop.entity.login;
 import com.shop.model.userModel;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -43,5 +44,10 @@ public class mainController {
         
     }
     
-    
+    @RequestMapping(value="")
+    public String login(@ModelAttribute(value="login") login info)
+    {
+        
+        return "";
+    }
 }

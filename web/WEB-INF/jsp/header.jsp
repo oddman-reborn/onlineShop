@@ -6,7 +6,7 @@
 			<div class="col-md-6"></div>
 			<div class="col-md-3">
 				
-				<form action="login" method="POST" >
+				<form action="login" ModelAttribute="login" method="POST" >
 					<input type="text" name="email" placeholder="E-mail"></input>
 					<input type="text" name="pasw" placeholder="Password"></input>
 					<input class="btn btn-success" type="submit" name="login" value="Log in"></input>
