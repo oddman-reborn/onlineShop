@@ -6,6 +6,7 @@
 package com.shop.model;
 
 import com.shop.entity.User;
+import com.shop.entity.login;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -59,5 +60,33 @@ public class userModel {
         session.close();
     }
     
-    
+    public boolean userLogin(login info)
+    {
+        boolean login=false;
+        
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            String email=info.getEmail();
+            String password=info.getPassword();
+            session.beginTransaction();
+            String hql="from user where email=? and password=?";
+            Query q=session.createQuery(hql);
+            q.setString(0, email);
+            q.setString(1, password);
+            session.getTransaction().commit();
+            
+            List <User> member=q.list();
+            
+            if(member.size() == 1)
+            {
+                login=true;
+            }
+        }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+            session.getTransaction().rollback();
+        }
+        return login;
+    }
 }
