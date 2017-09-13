@@ -65,6 +65,8 @@ public class mainController {
         {
             userModel model=new userModel();
             login=model.userLogin(info);
+            
+            return "u_dash";
         }
         else
         {
