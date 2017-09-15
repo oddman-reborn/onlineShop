@@ -1,6 +1,9 @@
 
 package com.shop.controller;
 
+import com.shop.entity.login;
+import com.shop.model.HibernateUtil;
+import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
@@ -9,11 +12,5 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 public class adminController {
     
-    public boolean adminLogin()
-    {
-        boolean login=false;
-        
-        
-        return login;
-    }
+    
 }

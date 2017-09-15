@@ -69,13 +69,14 @@ public class userModel {
             String email=info.getEmail();
             String password=info.getPassword();
             session.beginTransaction();
-            String hql="from user where email=? and password=?";
+            String hql="from User where email=? and password=?";
             Query q=session.createQuery(hql);
             q.setString(0, email);
             q.setString(1, password);
+            
             session.getTransaction().commit();
             
-            List <User> member=q.list();
+            List <User> member=(List<User>)q.list();
             
             if(member.size() == 1)
             {
@@ -87,6 +88,7 @@ public class userModel {
             e.printStackTrace();
             session.getTransaction().rollback();
         }
+        session.close();
         return login;
     }
 }

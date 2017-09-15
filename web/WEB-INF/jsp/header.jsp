@@ -8,8 +8,8 @@
 				
 				<form action="login" ModelAttribute="login" method="POST" >
 					<input type="text" name="email" placeholder="E-mail"></input>
-					<input type="text" name="pasw" placeholder="Password"></input>
-					<input class="btn btn-success" type="submit" name="login" value="Log in"></input>
+					<input type="text" name="password" placeholder="Password"></input>
+					<input class="btn btn-success" type="submit" value="Log in"></input>
 				</form>
 				
 				<a href="userReg" style="color:#449D44" ><b>Register |</b> </a>   

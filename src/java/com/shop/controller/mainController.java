@@ -3,10 +3,10 @@ package com.shop.controller;
 
 import com.shop.entity.User;
 import com.shop.entity.login;
+import com.shop.model.adminModel;
 import com.shop.model.userModel;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,7 +53,7 @@ public class mainController {
     @RequestMapping(value="login")
     public String login(@ModelAttribute(value="login") login info)
     {
-        boolean login=false;
+        boolean user_login=false;
         
         String email=info.getEmail();
         String password=info.getPassword();
@@ -64,15 +64,25 @@ public class mainController {
         if(matcher.find())
         {
             userModel model=new userModel();
-            login=model.userLogin(info);
-            
-            return "u_dash";
+            user_login=model.userLogin(info);
+            System.out.println(user_login);
+            if(user_login==true)
+                return "u_dash";
+            else
+                return "noMatch";
         }
         else
         {
+            adminModel model=new adminModel();
+            user_login=model.Login(info);
             
+            if (user_login == true)
+                return "admin_dash";
+            else 
+                return "noMatch";
+                    
         }
         
-        return "";
+        
     }
 }
