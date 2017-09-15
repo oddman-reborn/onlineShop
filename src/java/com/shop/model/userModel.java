@@ -91,4 +91,32 @@ public class userModel {
         session.close();
         return login;
     }
+    
+    public User getInfo(login info)
+    {
+        User user_info=new User();
+        
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            String email=info.getEmail();
+            String password=info.getPassword();
+            
+            session.beginTransaction();
+            String hql="from User where email=? and password=?";
+            
+            Query q=session.createQuery(hql);
+            q.setString(0, email);
+            q.setString(1, password);
+            session.getTransaction();
+            
+            user_info=(User) q.uniqueResult();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return user_info;
+    }
 }

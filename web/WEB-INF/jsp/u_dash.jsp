@@ -1,9 +1,8 @@
-<%-- 
-    Document   : u_dash
-    Created on : Sep 14, 2017, 3:09:41 AM
-    Author     : Md. Monirul Islam
---%>
 
+<%@page import="com.shop.entity.User"%>
+<%
+    User user=(User)session.getAttribute("session");
+%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -13,5 +12,7 @@
     </head>
     <body>
         <h1>User Dash</h1>
+        <%= user.getName()%>
+        <a href="logout">Logout</a>
     </body>
 </html>
