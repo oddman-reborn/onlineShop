@@ -21,34 +21,16 @@
 			</nav>
 
 		</div>
-		
-		
+
 		<div class="row">
-			<div class="col-md-9">
-				<div id="wrapper">
-                                    <%@include file="slider.jsp" %>	
-				</div>
-			</div>
-			
-			
-			
-			<div class="col-md-3">
-                            <%@include file="search_social.jsp" %>
-			</div>
-			
-			
-		</div>
-		
-		
-		<div class="row">
-			<div class="col-md-2">
-                            <%@include file="category.jsp" %>
-			</div>
-			
-			
-			<div class="col-md-10">
+
+			<div class="col-md-12">
 			<div class="main_view">
-				<h2>Display</h2>
+				<h2>Admin Dash</h2>
+                                <h4 style="color:#449D44;text-align: center;border-top: 50px;">
+                                    
+                                </h4>
+                                
 			</div>
 			</div>
 			
