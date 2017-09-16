@@ -20,7 +20,7 @@
 					<input class="btn btn-success" type="submit" value="Log in"></input>
 				</form>
 				
-				<a href="userReg" style="color:#449D44" ><b>Register |</b> </a>   
-				<a href="forgotPass" style="color:#449D44" ><b>Forgot Password </b></a>
+                            <p style="color:#449D44"><%= admin_nfo.getName()%></p> 
+				<a href="logout" style="color:#449D44" ><b>Log out</b></a>
 			</div>	
 		</div>

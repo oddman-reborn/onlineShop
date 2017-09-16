@@ -1,17 +1,69 @@
-<%-- 
-    Document   : admin_dash
-    Created on : Sep 15, 2017, 2:23:04 PM
-    Author     : Md. Monirul Islam
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
-    </head>
-    <body>
-        <h1>Admin Dash</h1>
-    </body>
+<%@ include file = "admin_head.jsp" %>
+
+
+<body>
+	<div class="container-fluid">
+		<%@include file="admin_header.jsp" %>
+		
+		
+		<div class="row">
+			<nav class="navbar navbar-inverse">
+			<div class="col-md-3"></div>
+			
+			<div class="col-md-6">
+				
+				  <div class="container-fluid">
+                                      <%@include file="admin_menubar.jsp" %>
+				  </div>
+				
+			</div>
+			</nav>
+
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-9">
+				<div id="wrapper">
+                                    <%@include file="slider.jsp" %>	
+				</div>
+			</div>
+			
+			
+			
+			<div class="col-md-3">
+                            <%@include file="search_social.jsp" %>
+			</div>
+			
+			
+		</div>
+		
+		
+		<div class="row">
+			<div class="col-md-2">
+                            <%@include file="category.jsp" %>
+			</div>
+			
+			
+			<div class="col-md-10">
+			<div class="main_view">
+				<h2>Display</h2>
+			</div>
+			</div>
+			
+		</div>
+		
+		
+		<%@ include file = "admin_footer.jsp" %>
+		
+	
+	</div>
+
+
+<%@ include file = "js.jsp" %>
+</body>
+
+
+
 </html>
