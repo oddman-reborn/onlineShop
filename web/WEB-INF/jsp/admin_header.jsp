@@ -14,13 +14,7 @@
 			<div class="col-md-6"></div>
 			<div class="col-md-3">
 				
-				<form action="login" ModelAttribute="login" method="POST" >
-					<input type="text" name="email" placeholder="E-mail"></input>
-					<input type="text" name="password" placeholder="Password"></input>
-					<input class="btn btn-success" type="submit" value="Log in"></input>
-				</form>
-				
-                            <p style="color:#449D44"><%= admin_nfo.getName()%></p> 
-				<a href="logout" style="color:#449D44" ><b>Log out</b></a>
+                            <p style="color:#449D44"><b><%= admin_info.getName()%></b></p> 
+				<a href="logout" style="color:#449D44" >Log out</a>
 			</div>	
 		</div>

@@ -1,11 +1,9 @@
 <div class="mainmenu" >
     <ul class="nav navbar-nav" >
-        <li><a href="index" ><p><b>Home</b></p></a></li>
-        <li><a href="about"><p><b>About us</b></p></a></li>
-        <li><a href="news"><p><b>News</b></p></a></li>
-        <li><a href="hot_tours"><p><b>Hot Tours</b></p></a></li>
-        <li><a href="hotel"><p><b>Hotels</b></p></a></li>
-        <li><a href="cruise"><p><b>Cruise</b></p></a></li>
-        <li><a href="contact_us"><p><b>Contact Us</b></p></a></li>
+        <li><a href="admin_dash" ><p><b>Home</b></p></a></li>
+        <li><a href="admin_uploadProduct"><p><b>Upload Products</b></p></a></li>
+        <li><a href="admin_orderList"><p><b>Order List</b></p></a></li>
+        <li><a href="admin_register"><p><b>Register Admin</b></p></a></li>
+        <li><a href="admin_delivery"><p><b>Delivery</b></p></a></li>
     </ul>
 </div>
