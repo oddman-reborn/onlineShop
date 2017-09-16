@@ -1,5 +1,5 @@
 package com.shop.entity;
-// Generated Sep 14, 2017 3:34:35 AM by Hibernate Tools 4.3.1
+// Generated Sep 17, 2017 2:30:39 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;

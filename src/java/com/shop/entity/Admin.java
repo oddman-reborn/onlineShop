@@ -1,5 +1,5 @@
 package com.shop.entity;
-// Generated Sep 14, 2017 3:34:35 AM by Hibernate Tools 4.3.1
+// Generated Sep 17, 2017 2:30:39 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -24,15 +24,17 @@ public class Admin  implements java.io.Serializable {
      private String username;
      private String password;
      private String role;
+     private String designation;
 
     public Admin() {
     }
 
-    public Admin(String name, String username, String password, String role) {
+    public Admin(String name, String username, String password, String role, String designation) {
        this.name = name;
        this.username = username;
        this.password = password;
        this.role = role;
+       this.designation = designation;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -85,6 +87,16 @@ public class Admin  implements java.io.Serializable {
     
     public void setRole(String role) {
         this.role = role;
+    }
+
+    
+    @Column(name="designation", nullable=false, length=100)
+    public String getDesignation() {
+        return this.designation;
+    }
+    
+    public void setDesignation(String designation) {
+        this.designation = designation;
     }
 
 

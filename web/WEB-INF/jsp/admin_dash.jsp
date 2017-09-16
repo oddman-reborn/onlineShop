@@ -28,7 +28,8 @@
 			<div class="main_view">
 				<h2>Admin Dash</h2>
                                 <h4 style="color:#449D44;text-align: center;border-top: 50px;">
-                                    
+                                    <%= admin_info.getName()%><br>
+                                    <%= admin_info.getDesignation()%> <br>
                                 </h4>
                                 
 			</div>

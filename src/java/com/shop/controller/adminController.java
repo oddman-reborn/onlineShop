@@ -1,10 +1,9 @@
 
 package com.shop.controller;
 
-import com.shop.entity.login;
-import com.shop.model.HibernateUtil;
-import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
@@ -12,5 +11,16 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 public class adminController {
     
+    @RequestMapping(value="admin_uploadProduct",method=RequestMethod.GET)
+    public String viewUpload()
+    {
+        return "admin_uploadProduct";
+    }
     
+    @RequestMapping(value="admin_uploadProduct",method=RequestMethod.POST)
+    public String uploadProduct()
+    {
+        
+        return "";
+    }
 }
