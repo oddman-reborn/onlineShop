@@ -2,8 +2,10 @@
 package com.shop.model;
 
 import com.shop.entity.Admin;
+import com.shop.entity.Product;
 import com.shop.entity.login;
 import java.util.List;
+import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -71,5 +73,39 @@ public class adminModel {
         }
         session.close();
         return admin_info;
+    }
+    
+    public void insertProduct(Product product)
+    {
+        Session session =HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            session.save(product);
+            session.getTransaction().commit();
+        }
+        catch(Exception e){
+            session.getTransaction().rollback();
+        }
+        
+        session.close();
+    }
+    
+    public List getAllProduct()
+    {
+        List<Product> list=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            session.beginTransaction();
+            Criteria criteria=session.createCriteria(Product.class);
+            
+            list =(List<Product>) criteria.list();
+            session.getTransaction().commit();
+        }
+        catch(Exception e){
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return list;
     }
 }

@@ -6,7 +6,7 @@
 
 .sidebar ul li a:hover{background-color:#222222;}
 				
-.main_view{background-color:#A8A8A8;margin-top:5px;margin:10px auto;color:#449D44}
+.main_view{margin-top:5px;margin:10px auto;color:#449D44}
 .main_view h2{text-align:center;}
 .left_input input{float:left;}
 
@@ -19,3 +19,5 @@
 				float:left;padding:3px;color:white;}
 .search_social{background-color:#449D44;display:block;height:293px; }
 .a{background-color:#449D44;color:white;}
+.table img{height: 100px;width: 100px}
+.table, th, td {border: 1px #449D44;}
