@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 
 
 public class adminModel {
@@ -139,5 +140,69 @@ public class adminModel {
             session.getTransaction().rollback();
         }
         session.close();
+    }
+    
+    public List getProductById(int id)
+    {
+        List<Product> productList=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            session.beginTransaction();
+            String hql="from Product where id=?";
+            Query q=session.createQuery(hql);
+            q.setInteger(0, id);
+            session.getTransaction();
+            productList=q.list();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return  productList;
+    }
+    
+    public List getProductByCategory(String category)
+    {
+        List<Product> productList=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            session.beginTransaction();
+            String hql="from Product where category=?";
+            Query q=session.createQuery(hql);
+            q.setString(0,category);
+            session.getTransaction();
+            productList=q.list();
+            
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return productList;
+    }
+    
+    public List getProductByBrand(String brand)
+    {
+        List<Product> productList=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            String hql="from Product where brand=?";
+            Query q=session.createQuery(hql);
+            
+            q.setString(0, brand);
+            session.getTransaction();
+            
+            productList=q.list();
+        }
+        catch(Exception e){
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return productList;
     }
 }
