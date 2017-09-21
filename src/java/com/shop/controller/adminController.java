@@ -17,6 +17,12 @@ import org.springframework.web.multipart.commons.CommonsMultipartFile;
 @SessionAttributes("session")
 @Controller
 public class adminController {
+    
+    @RequestMapping(value="admin_dash")
+    public String viewAdminDash()
+    {
+        return "admin_dash";
+    }
 
     @RequestMapping(value = "admin_uploadProduct", method = RequestMethod.GET)
     public String viewUpload() {
@@ -53,7 +59,7 @@ public class adminController {
         return "admin_uploadProductSuccess";
     }
 
-    @RequestMapping(value = "admin_productList", method = RequestMethod.GET)
+    @RequestMapping(value = "admin_productList")
     public String productList(Model m) {
         adminModel model = new adminModel();
 
@@ -101,5 +107,36 @@ public class adminController {
 
         }
         return "admin_updateProductSuccess";
+    }
+    
+    @RequestMapping(value="admin_searchById",method=RequestMethod.POST)
+    public String searchByID(@RequestParam(value="id") int id,Model m)
+    {
+        adminModel model=new adminModel();
+        List productList = model.getProductById(id);
+        
+        m.addAttribute("productList", productList);
+        return "admin_productList";
+    }
+    
+    
+    @RequestMapping(value="admin_searchByCategory",method=RequestMethod.POST)
+    public String searchByCategory(@RequestParam(value="category") String category,Model m)
+    {
+        adminModel model=new adminModel();
+        
+        List productList = model.getProductByCategory(category);
+        m.addAttribute("productList", productList);
+        return "admin_productList";
+    }
+    
+    @RequestMapping(value="admin_searchByBrand",method=RequestMethod.POST)
+    public String searchByBrand(@RequestParam (value="brand") String brand,Model m)
+    {
+        adminModel model=new adminModel();
+        
+        List productList=model.getProductByBrand(brand);
+        m.addAttribute("productList", productList);
+        return "admin_productList";
     }
 }

@@ -27,7 +27,7 @@
             <div class="col-md-12">
                 <div class="main_view">
                     <h2>Upload Product</h2>
-                    <div class="panel-body" style="color: #449D44;background-color: #262626">
+                   
                         <form class="form-horizontal" role="form" ModelAttribute="Product" action="admin_uploadProduct" method="POST" enctype="multipart/form-data">
                             <div class="inp" style="margin-left: 300px;margin-right: 300px">
                                 <label >Name</label>
@@ -78,7 +78,7 @@
 
                             </div>
                         </form>
-                    </div>
+                    
 
                 </div>
             </div>
