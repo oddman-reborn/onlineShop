@@ -108,4 +108,36 @@ public class adminModel {
         session.close();
         return list;
     }
+    
+    public Product getProductDetailById(int id)
+    {
+        Product productDetail=new Product();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            productDetail=(Product)session.get(Product.class,id );
+            session.getTransaction();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return productDetail;
+    }
+    
+    public void updateProduct(Product product)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            session.update(product);
+            session.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+    }
 }

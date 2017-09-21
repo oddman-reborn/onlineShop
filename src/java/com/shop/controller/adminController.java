@@ -1,4 +1,3 @@
-
 package com.shop.controller;
 
 import com.shop.entity.Product;
@@ -15,67 +14,92 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.commons.CommonsMultipartFile;
 
-
 @SessionAttributes("session")
 @Controller
 public class adminController {
-    
-    @RequestMapping(value="admin_uploadProduct",method=RequestMethod.GET)
-    public String viewUpload()
-    {
+
+    @RequestMapping(value = "admin_uploadProduct", method = RequestMethod.GET)
+    public String viewUpload() {
         return "admin_uploadProduct";
     }
-    
-    @RequestMapping(value="admin_uploadProduct",method=RequestMethod.POST)
-    public String uploadProduct(@RequestParam CommonsMultipartFile file,@ModelAttribute ("Product") Product product)
-    {
-        
-        
-        String fileName=file.getOriginalFilename();
-        
-        String mimetype= new MimetypesFileTypeMap().getContentType(fileName);
+
+    @RequestMapping(value = "admin_uploadProduct", method = RequestMethod.POST)
+    public String uploadProduct(@RequestParam CommonsMultipartFile file, @ModelAttribute("Product") Product product) {
+
+        String fileName = file.getOriginalFilename();
+
+        String mimetype = new MimetypesFileTypeMap().getContentType(fileName);
         String type = mimetype.split("/")[0];
-        if(type.equals("image"))
-        {
-            String imagePath="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\product_image\\"+fileName;
-            
-            try
-            {
-                File destination=new File(imagePath);
+        if (type.equals("image")) {
+            String imagePath = "E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\product_image\\" + fileName;
+
+            try {
+                File destination = new File(imagePath);
                 file.transferTo(destination);
-                product.setImagePath("resources\\product_image\\"+fileName);
-                
-                adminModel model=new adminModel();
-                
+                product.setImagePath("resources\\product_image\\" + fileName);
+
+                adminModel model = new adminModel();
+
                 model.insertProduct(product);
-                product=null;
-            }
-            catch(Exception e)
-            {
+                product = null;
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            
-        }
-        else
+
+        } else {
             return "admin_imageError";
-        
-        
+        }
+
         return "admin_uploadProductSuccess";
     }
-    
-    @RequestMapping(value="admin_productList",method=RequestMethod.GET)
-    public String productList(Model m)
-    {
-        adminModel model=new adminModel();
-        
-        List productList=model.getAllProduct();
-        m.addAttribute("productList",productList);
+
+    @RequestMapping(value = "admin_productList", method = RequestMethod.GET)
+    public String productList(Model m) {
+        adminModel model = new adminModel();
+
+        List productList = model.getAllProduct();
+        m.addAttribute("productList", productList);
         return "admin_productList";
     }
-    
-    @RequestMapping(value="admin_updateProduct",method=RequestMethod.GET)
-    public String viewUpdate()
-    {
+
+    @RequestMapping(value = "admin_updateProduct", method = RequestMethod.GET)
+    public String viewUpdate(@RequestParam(value = "id") int id, Model m) {
+        adminModel model = new adminModel();
+        Product productDetail = model.getProductDetailById(id);
+
+        m.addAttribute("productDetail", productDetail);
+
         return "admin_updateProduct";
+    }
+
+    @RequestMapping(value = "admin_updateProduct", method = RequestMethod.POST)
+    public String productUpdate(@ModelAttribute(value = "Product") Product product, @RequestParam CommonsMultipartFile file) {
+        String fileName = file.getOriginalFilename();
+        adminModel model = new adminModel();
+        if (fileName.isEmpty()) {
+            
+            model.updateProduct(product);
+        } else {
+            String mimetype = new MimetypesFileTypeMap().getContentType(fileName);
+            String type = mimetype.split("/")[0];
+            
+            if (type.equals("image")) {
+            String imagePath = "E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\product_image\\" + fileName;
+
+            try {
+                File destination = new File(imagePath);
+                file.transferTo(destination);
+                product.setImagePath("resources\\product_image\\" + fileName);
+                model.updateProduct(product);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else {
+            return "admin_imageError";
+        }
+
+        }
+        return "admin_updateProductSuccess";
     }
 }
