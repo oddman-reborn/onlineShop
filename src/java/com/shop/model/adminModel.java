@@ -8,6 +8,7 @@ import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.Session;
+import org.hibernate.criterion.Order;
 import org.hibernate.criterion.Restrictions;
 
 
@@ -204,5 +205,77 @@ public class adminModel {
         }
         session.close();
         return productList;
+    }
+    
+    public List sortProduct(int value)
+    {
+        List<Product> productList=null;
+        
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction();
+            
+            if(value==1)
+            {
+                Criteria criteria=session.createCriteria(Product.class);
+                
+                criteria=criteria.addOrder(Order.asc("unitAvailable"));
+                session.getTransaction();
+                
+                productList=criteria.list();
+            }
+            
+            else{
+                Criteria criteria=session.createCriteria(Product.class);
+                
+                criteria=criteria.addOrder(Order.desc("unitAvailable"));
+                session.getTransaction();
+                
+                productList=criteria.list();
+            }
+            
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return productList;
+    }
+    
+    public void insertAdmin(Admin admin)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction();
+            session.save(admin);
+            session.getTransaction().commit();
+            
+        }
+        catch(Exception e){
+            session.getTransaction().rollback();
+        }
+        session.close();
+    }
+    
+    public List getAdminList()
+    {
+        List<Admin> adminList=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        
+        try{
+            session.beginTransaction();
+            
+            Criteria criteria=session.createCriteria(Admin.class);
+            session.getTransaction();
+            adminList=criteria.list();
+        }
+        catch(Exception e){
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return adminList;
     }
 }

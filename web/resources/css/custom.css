@@ -6,7 +6,7 @@
 
 .sidebar ul li a:hover{background-color:#222222;}
 				
-.main_view{margin-top:10px;margin:10px auto;color:#449D44}
+.main_view{margin-top:10px;margin:10px auto;color:#449D44;min-height: 400px;}
 .main_view h2{text-align:center;}
 .left_input input{float:left;}
 

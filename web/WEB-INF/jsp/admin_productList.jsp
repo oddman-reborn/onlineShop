@@ -104,7 +104,7 @@
                                 <td>${product.name}</td>
                                 <td>${product.unitAvailable}</td>
                                 <td>${product.category}</td>
-                                <td>${product.detail}</td>
+                                <td><textarea class="form-control" id="focusedInput" name="detail" rows="4" cols="15" readonly>${product.detail}</textarea></td>
                                 <td>${product.price}</td>
                                 <td>${product.brand}</td>
                                 <td>
