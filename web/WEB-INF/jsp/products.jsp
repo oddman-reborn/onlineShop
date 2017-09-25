@@ -51,10 +51,7 @@
 				<h2>Display</h2>
                                 <div class="panel-body" style="color: #449D44;border-bottom-color: #449D44">
                                     <c:forEach items="${category}" var="cat">
-                                        <p>${cat.category}</p>
-                                        <c:forEach items="${cat}" var="p">
-                                            <p>${p.name}</p>
-                                        </c:forEach>
+                                        <p>${cat}</p>
                                     </c:forEach>
                                     
                                 </div>

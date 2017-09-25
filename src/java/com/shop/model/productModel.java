@@ -9,6 +9,7 @@ import com.shop.entity.Product;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.HibernateException;
+import org.hibernate.Query;
 import org.hibernate.Session;
 
 /**
@@ -18,14 +19,14 @@ import org.hibernate.Session;
 public class productModel {
 
     public List getCategory() {
-        List<String> category = null;
+        List category = null;
         Session session = HibernateUtil.getSessionFactory().openSession();
         try {
             session.beginTransaction();
-            Criteria criteria = session.createCriteria(Product.class, "Category");
+            String hql="select val.category from Product val";
+            Query query=session.createQuery(hql);
             session.getTransaction();
-            
-            category=criteria.list();
+            category=query.list();
         } catch (HibernateException e) {
             session.getTransaction().rollback();
         }

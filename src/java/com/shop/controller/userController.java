@@ -1,6 +1,7 @@
 
 package com.shop.controller;
 
+import com.shop.entity.Product;
 import com.shop.entity.User;
 import com.shop.entity.login;
 import com.shop.model.HibernateUtil;
@@ -22,7 +23,13 @@ public class userController {
     public String viewProducts(Model productCat)
     {
         productModel product=new productModel();
-        List<String> category=product.getCategory();
+        System.out.println("gddf ");
+        List category=product.getCategory();
+        int i=category.size();
+        System.out.println(i);
+        String val=category.toString();
+        System.out.println("gddf ");
+        System.out.println(val);
         productCat.addAttribute("category", category);
         return "products";
     }
