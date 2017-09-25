@@ -45,6 +45,8 @@
                                 <option value="Computer(Laptop)">Computer(Laptop)</option>
                                 <option value="Computer(Desktop)">Computer(Desktop)</option>
                                 <option value="Electronics goods">Electronic goods</option>
+                                <option value="MotherBoard">MotherBoard</option>
+                                <option value="PC Casing">PC Casing</option>
                                 <option value="Hard Disk">Hard Disk</option>
                                 <option value="Monitor">Monitor</option>
                                 <option value="Mouse">Mouse</option>
