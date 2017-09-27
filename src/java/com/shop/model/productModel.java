@@ -18,20 +18,22 @@ import org.hibernate.Session;
  */
 public class productModel {
 
-    public List getCategory() {
-        List category = null;
-        Session session = HibernateUtil.getSessionFactory().openSession();
-        try {
-            session.beginTransaction();
-            String hql="select val.category from Product val";
-            Query query=session.createQuery(hql);
-            session.getTransaction();
-            category=query.list();
-        } catch (HibernateException e) {
-            session.getTransaction().rollback();
-        }
-        session.close();
-        return category;
-    }
+ public List<Product> getAllProduct()
+ {
+     List<Product> productList=null;
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         Criteria criteria=session.createCriteria(Product.class);
+         session.getTransaction();
+         productList=criteria.list();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+     return productList;
+ }
 
 }

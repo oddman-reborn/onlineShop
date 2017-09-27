@@ -1,6 +1,6 @@
 .sidebar{overflow:hidden;float:left;}
 .sidebar ul{margin:0;padding:0;list-style:none;}
-.sidebar ul li a{display:block;padding:5px;text-decoration:none;display:block;
+.sidebar ul li a{display:block;padding:5px;text-decoration:none;
 				border-bottom:1px solid white;color:white;background-color:#449D44;}
 				
 
@@ -8,6 +8,14 @@
 				
 .main_view{margin-top:10px;margin:10px auto;color:#449D44;min-height: 400px;}
 .main_view h2{text-align:center;}
+
+.product{overflow:hidden;float:left;}
+.product ul{margin:0;padding:0;list-style:none;}
+.product ul li{float: left;}
+.product ul li a{display:block;padding:5px;text-decoration:none;
+				border-bottom:1px solid white;}
+
+
 .left_input input{float:left;}
 
 

@@ -6,6 +6,7 @@ import com.shop.entity.User;
 import com.shop.entity.login;
 import com.shop.model.HibernateUtil;
 import com.shop.model.productModel;
+import java.util.ArrayList;
 import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
@@ -20,17 +21,17 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 public class userController {
     
     @RequestMapping(value="products")
-    public String viewProducts(Model productCat)
+    public String viewProducts(Model product,Model cat)
     {
-        productModel product=new productModel();
-        System.out.println("gddf ");
-        List category=product.getCategory();
-        int i=category.size();
-        System.out.println(i);
-        String val=category.toString();
-        System.out.println("gddf ");
-        System.out.println(val);
-        productCat.addAttribute("category", category);
+        productModel pm=new productModel();
+        List productList=pm.getAllProduct();
+        
+        List category=new ArrayList();
+        category.add("Electronic goods");
+        category.add("Computer(Desktop)");
+        category.add("Computer(Laptop)");
+        cat.addAttribute("category", category);
+        product.addAttribute("productList", productList);
         return "products";
     }
     
