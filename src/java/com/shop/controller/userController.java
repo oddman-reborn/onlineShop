@@ -13,6 +13,8 @@ import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 
@@ -33,6 +35,15 @@ public class userController {
         cat.addAttribute("category", category);
         product.addAttribute("productList", productList);
         return "products";
+    }
+    
+    @RequestMapping(value="viewByProduct",method=RequestMethod.GET)
+    public String detailByProduct(@RequestParam(value="pid") int pid,Model m)
+    {
+        productModel pmodel=new productModel();
+        Product product=pmodel.getProductById(pid);
+        m.addAttribute("product", product);
+        return "viewByProduct";
     }
     
 }

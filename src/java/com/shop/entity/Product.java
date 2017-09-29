@@ -104,7 +104,7 @@ public class Product  implements java.io.Serializable {
     }
 
     
-    @Column(name="detail", nullable=false, length=200)
+    @Column(name="detail", nullable=false, length=500)
     public String getDetail() {
         return this.detail;
     }

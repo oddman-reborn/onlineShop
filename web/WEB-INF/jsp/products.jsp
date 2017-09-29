@@ -57,9 +57,10 @@
                                             <c:forEach items="${productList}" var="p" end="3">
                                                 <ul class="product" style="list-style: none;">
                                                     <li>
-                                                        <a href="#" style="text-decoration: none;color: #449D44">
+                                                        <a href="viewByProduct" style="text-decoration: none;color: #449D44">
                                                             <c:choose>
                                                                 <c:when test="${cat==p.category}">
+                                                                    <a href="viewByProduct?pid=${p.id}" style="text-decoration: none;color: #449D44">
                                                                     <b>${p.name}</b><br>
                                                                     <img src="${p.imagePath}" style="height: 150px;height: 150px;">
                                                                     <P>Price :${p.price}</P>

@@ -35,5 +35,21 @@ public class productModel {
      session.close();
      return productList;
  }
-
+ 
+ public Product getProductById(int pid)
+ {
+     Product product=new Product();
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         product=(Product)session.get(Product.class,pid);
+         session.getTransaction();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+     return product;
+ }
 }
