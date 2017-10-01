@@ -48,7 +48,6 @@
 
             <div class="col-md-10">
                 <div class="main_view">
-                    <h2>Display</h2>
                     <c:forEach items="${category}" var="cat"><br>
                         <div class="panel panel-defaul" style="background-color: #FFFCDD;border-style: solid;border-color: #449D44;">
                             <div class="panel-heading">

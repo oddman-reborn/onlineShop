@@ -52,4 +52,25 @@ public class productModel {
      session.close();
      return product;
  }
+ 
+ public List<Product> getProductByCategory(String category)
+ {
+     List<Product> productList=null;
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     
+     try{
+         session.beginTransaction();
+         String hql="from Product where category=?";
+         Query query=session.createQuery(hql);
+         query.setString(0, category);
+         session.getTransaction();
+         productList=query.list();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+     return productList;
+ }
 }

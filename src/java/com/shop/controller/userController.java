@@ -46,4 +46,13 @@ public class userController {
         return "viewByProduct";
     }
     
+    @RequestMapping(value="productList",method=RequestMethod.GET)
+    public String productListByCategory(@RequestParam(value="category") String category,Model m)
+    {
+        productModel product=new productModel();
+        List <Product> productList=product.getProductByCategory(category);
+        m.addAttribute("productList", productList);
+        return "productListByCategory";
+    }
+    
 }
