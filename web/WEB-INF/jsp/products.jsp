@@ -72,7 +72,7 @@
                                             </c:forEach>
                                             
                                         </div>
-                                        <a class="btn btn-success" style="float: right;">View more>></a>
+                                        <a class="btn btn-success" style="float: right;" href="productList?category=${cat}">View more>></a>
                                         </div>
                                     </c:forEach>
                                     </div>

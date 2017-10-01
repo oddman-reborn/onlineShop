@@ -60,8 +60,8 @@
                                                 <label style="font-size: 20px;color: #555555;">Price :${product.price}</label><br>
                                             </td>
                                             <td>
-                                                <a href="admin_updateProduct?id=${product.id}"><input class="btn btn-success" type="submit"  value="View Details"/></a>
-                                                <a href="admin_updateProduct?id=${product.id}"><img src="resources\images\addtocart-green.png" style="width: 280px" /></a>
+                                                <a href="viewByProduct?pid=${product.id}"><input class="btn btn-success" type="submit"  value="View Details"/></a>
+                                                <a href="addToCart?pid=${product.id}"><img src="resources\images\addtocart-green.png" style="width: 280px" /></a>
                                             </td>
                                         </tr>
                                     </table>

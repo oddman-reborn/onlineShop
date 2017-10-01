@@ -8,6 +8,8 @@ import com.shop.model.HibernateUtil;
 import com.shop.model.productModel;
 import java.util.ArrayList;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
@@ -54,5 +56,30 @@ public class userController {
         m.addAttribute("productList", productList);
         return "productListByCategory";
     }
+    
+    @RequestMapping(value="addToCart",method=RequestMethod.GET)
+    public String addToCart(@RequestParam(value="pid") int pid,HttpServletRequest req)
+    {
+        HttpSession getsession=req.getSession();
+        
+        User user=(User)getsession.getAttribute("getsession");
+        try{
+            int userId=user.getId();
+        if(userId >0)
+        {
+            System.out.println(userId);
+            
+        }
+        }
+        catch(Exception e)
+        {
+            return"noMatch";
+            
+        }
+        
+        
+        return"";
+    }
+    
     
 }
