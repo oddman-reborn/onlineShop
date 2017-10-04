@@ -68,7 +68,7 @@ public class mainController {
                 String name=user_info.getName();
                 session.setAttribute("session", user_info);
                 
-                return "u_dash";
+                return "index";
             } else {
                 return "noMatch";
             }
