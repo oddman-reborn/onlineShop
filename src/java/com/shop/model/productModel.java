@@ -69,4 +69,9 @@ public class productModel {
      session.close();
      return productList;
  }
+ 
+ public void insertCart(int pid,int uid)
+ {
+     
+ }
 }
