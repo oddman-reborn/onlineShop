@@ -78,25 +78,31 @@ public class userController {
     @RequestMapping(value="myCart",method=RequestMethod.GET)
     public String myCart(@RequestParam(value="userId") int userId,Model cart,Model pdetail)
     {
+        List<Cart> userCart=new ArrayList();
+        List<Product> productDetail=new ArrayList();
         if(userId>0)
         {
             productModel productmodel=new productModel();
-            List productId=productmodel.getCartPid(userId);
-            List <Product> productDetail=new ArrayList();
-            List productQuantity=new ArrayList();
-            for(int i=0;i<productId.size();i++)
+            
+            userCart=productmodel.getUserCart(userId);
+            for(int i=0;i< userCart.size();i++)
             {
-                int pid=(int) productId.get(i);
-                System.out.println(pid);
+                int pid=userCart.get(i).getProductId();
                 Product product=productmodel.getProductById(pid);
                 productDetail.add(product);
-                int quantity=productmodel.getCartQuantity(pid, userId);
-                System.out.println(quantity);
-                productQuantity.add(quantity);
             }
-            
+            cart.addAttribute("userCart", userCart);
+            pdetail.addAttribute("productDetail", productDetail);
             return"myCart";
         }
         return"loginError";
+    }
+    
+    @RequestMapping(value="cartDelete",method=RequestMethod.GET)
+    public String cartDelete(@RequestParam(value="pid") int pid)
+    {
+        productModel product=new productModel();
+        product.deleteCart(pid);
+        return "cartDelete";
     }
 }

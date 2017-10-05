@@ -86,24 +86,24 @@ public class productModel {
      session.close();
  }
  
- public List getCartPid(int userId)
+ public List<Cart> getUserCart(int userId)
  {
-     List productId=null;
+     List<Cart> userCart=null;
      Session session=HibernateUtil.getSessionFactory().openSession();
      try{
          session.beginTransaction();
-         String hql="select pid.productId from Cart pid where pid.userId=?";
+         String hql="from Cart where userId=?";
          Query query=session.createQuery(hql);
          query.setInteger(0, userId);
          session.getTransaction();
-         productId=query.list();
+         userCart=query.list();
      }
      catch(Exception e)
      {
          session.getTransaction().rollback();
      }
      session.close();
-     return productId;
+     return userCart;
  }
  
  public int getCartQuantity(int pid,int uid)
@@ -126,5 +126,21 @@ public class productModel {
      }
      session.close();
      return quantity;
+ }
+ 
+ public void deleteCart(int pid)
+ {
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         Product product=(Product)session.load(Product.class,pid);
+         session.delete(product);
+         session.getTransaction().commit();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
  }
 }
