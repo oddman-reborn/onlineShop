@@ -76,13 +76,27 @@ public class userController {
     }
     
     @RequestMapping(value="myCart",method=RequestMethod.GET)
-    public String myCart(@RequestParam(value="userId") int userId)
+    public String myCart(@RequestParam(value="userId") int userId,Model cart,Model pdetail)
     {
         if(userId>0)
         {
-            productModel product=new productModel();
-            Product productList;
+            productModel productmodel=new productModel();
+            List productId=productmodel.getCartPid(userId);
+            List <Product> productDetail=new ArrayList();
+            List productQuantity=new ArrayList();
+            for(int i=0;i<productId.size();i++)
+            {
+                int pid=(int) productId.get(i);
+                System.out.println(pid);
+                Product product=productmodel.getProductById(pid);
+                productDetail.add(product);
+                int quantity=productmodel.getCartQuantity(pid, userId);
+                System.out.println(quantity);
+                productQuantity.add(quantity);
+            }
+            
+            return"myCart";
         }
-        return"myCart";
+        return"loginError";
     }
 }
