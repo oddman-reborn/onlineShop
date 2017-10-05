@@ -1,6 +1,7 @@
 
 package com.shop.model;
 
+import com.shop.entity.Cart;
 import com.shop.entity.Product;
 import java.util.List;
 import org.hibernate.Criteria;
@@ -70,8 +71,36 @@ public class productModel {
      return productList;
  }
  
- public void insertCart(int pid,int uid)
+ public void insertCart(Cart cart)
  {
-     
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         session.save(cart);
+         session.getTransaction().commit();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+ }
+ 
+ public List<Product> getCart(int userId)
+ {
+     List<Product> productList=null;
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         String hql="from Cart where userId=?";
+         Query query=session.createQuery(hql);
+         query.setInteger(0, userId);
+         
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     return productList;
  }
 }

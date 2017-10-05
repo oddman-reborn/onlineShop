@@ -1,6 +1,7 @@
 
 package com.shop.controller;
 
+import com.shop.entity.Cart;
 import com.shop.entity.Product;
 import com.shop.entity.User;
 import com.shop.entity.login;
@@ -14,6 +15,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -57,30 +59,30 @@ public class userController {
         return "productListByCategory";
     }
     
-    @RequestMapping(value="addToCart",method=RequestMethod.GET)
-    public String addToCart(@RequestParam(value="pid") int pid,HttpServletRequest req)
+    @RequestMapping(value="addToCart",method=RequestMethod.POST)
+    public String addToCart(@ModelAttribute(value="Cart") Cart cart)
     {
-        HttpSession getsession=req.getSession();
-        
-        User user=(User)getsession.getAttribute("getsession");
-        try{
-            int userId=user.getId();
-        if(userId >0)
+        int id=cart.getUserId();
+        System.out.println(id);
+        System.out.println("here");
+        if(id>0)
         {
-            System.out.println(userId);
-            
-            
+            productModel product=new productModel();
+            product.insertCart(cart);
+            return "cartSuccess";
         }
-        }
-        catch(Exception e)
-        {
-            return"noMatch";
-            
-        }
-        
-        
-        return"";
+        else
+            return"loginError";
     }
     
-    
+    @RequestMapping(value="myCart",method=RequestMethod.GET)
+    public String myCart(@RequestParam(value="userId") int userId)
+    {
+        if(userId>0)
+        {
+            productModel product=new productModel();
+            Product productList;
+        }
+        return"myCart";
+    }
 }

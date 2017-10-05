@@ -1,4 +1,5 @@
 <%@page import="com.shop.entity.User"%>
+<%!static int user_id; %>
 <div class="row" style="background-color:#222222">
 			<div class="col-md-3" >
 				<img src="resources/images/logo.png" style="width:100px; length:70px"/>
@@ -6,16 +7,18 @@
 			
 			<div class="col-md-6"></div>
 			<div class="col-md-3">
-                            <%try{
+                            <%
+                                try{
                                 User user=(User)session.getAttribute("session");
                                 int id=user.getId();
                                 String name=user.getName();
                                 if(id>0)
-                                {%>
+                                {user_id=id;%>
                                 <b style="color: #449D44;font-size: 20px"><%= user.getName()%></b><br>
                                 <a href="logout" style="color: #449D44">Logout</a>
-                                <% }
+                                <%  }
                                     else{
+                                   
                                 %>
 				
 				<form action="login" ModelAttribute="login" method="POST" >
@@ -37,7 +40,7 @@
 				
 				<a href="userReg" style="color:#449D44" ><b>Register |</b> </a>   
 				<a href="forgotPass" style="color:#449D44" ><b>Forgot Password </b></a>
-                                 <%   }%>
+                                 <%  user_id=0;  }%>
                                 
 			</div>	
 		</div>

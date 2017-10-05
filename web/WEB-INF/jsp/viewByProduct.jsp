@@ -52,7 +52,7 @@
                                 <hr style="border-top: 1px solid #4cae4c">
                                 <div class="col-md-4">
                                     <img src="${product.imagePath}" style="height: 330px;width: 330px;">
-                                    <form action="addtoCart" method="POST">
+                                    <form action="addToCart" ModelAttribute="Cart" method="POST">
                                         <label>Quantity: </label>
                                         <select name="quantity"  id="focusedInput" required>
                                             <option value="1">1</option>
@@ -61,7 +61,10 @@
                                             <option value="4">4</option>
                                             <option value="5">5</option>
                                         </select><br>
-                                        <a class="btn btn-success" >Add to Cart</a><br><br>
+                                        <input type="number" name="productId" value="${product.id}" hidden>
+                                        <input type="number" name="userId" value="<%= user_id %>" hidden>
+                                        <input type="number" name="price" value="${product.price}" hidden>
+                                        <input style="width: 200px;" class="btn btn-success" type="submit" name="reg" value="Add to Cart"/><br><br>
                                     </form>
                                     
                                 </div>
