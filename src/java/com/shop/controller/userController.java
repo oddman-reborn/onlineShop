@@ -99,10 +99,10 @@ public class userController {
     }
     
     @RequestMapping(value="cartDelete",method=RequestMethod.GET)
-    public String cartDelete(@RequestParam(value="pid") int pid)
+    public String cartDelete(@RequestParam(value="cid") int cid)
     {
         productModel product=new productModel();
-        product.deleteCart(pid);
+        product.deleteCart(cid);
         return "cartDelete";
     }
     

@@ -128,13 +128,13 @@ public class productModel {
      return quantity;
  }
  
- public void deleteCart(int pid)
+ public void deleteCart(int cid)
  {
      Session session=HibernateUtil.getSessionFactory().openSession();
      try{
          session.beginTransaction();
-         Product product=(Product)session.load(Product.class,pid);
-         session.delete(product);
+         Cart cart=(Cart) session.load(Cart.class, cid);
+         session.delete(cart);
          session.getTransaction().commit();
      }
      catch(Exception e)
@@ -149,7 +149,7 @@ public class productModel {
      Session session=HibernateUtil.getSessionFactory().openSession();
      try{
          session.beginTransaction();
-         session.saveOrUpdate(cart);
+         session.update(cart);
          session.getTransaction().commit();
      }
      catch(Exception e)

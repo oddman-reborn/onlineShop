@@ -69,7 +69,7 @@
                                                 <td>${cart.quantity}</td>
                                                 <td>
                                                     <a href="viewCartProduct?pid=${product.id}"><input class="btn btn-success" type="submit"  value="View Detail"/></a>
-                                                    <a href="cartDelete?pid=${product.id}" onclick="return confirm('Are you sure?')"><input class="btn btn-success" type="submit"  value="Remove"/></a>
+                                                    <a href="cartDelete?cid=${cart.id}" onclick="return confirm('Are you sure?')"><input class="btn btn-success" type="submit"  value="Remove"/></a>
                                                 </td>
                                             </c:when>
                                         </c:choose>
