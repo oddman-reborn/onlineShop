@@ -143,4 +143,19 @@ public class productModel {
      }
      session.close();
  }
+ 
+ public void updateCart(Cart cart)
+ {
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         session.saveOrUpdate(cart);
+         session.getTransaction().commit();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+ }
 }

@@ -105,4 +105,21 @@ public class userController {
         product.deleteCart(pid);
         return "cartDelete";
     }
+    
+    @RequestMapping(value="viewCartProduct",method=RequestMethod.GET)
+    public String viewCartProduct(@RequestParam(value="pid") int pid,Model model)
+    {
+        productModel productmodel=new productModel();
+        Product product=productmodel.getProductById(pid);
+        model.addAttribute("product", product);
+        return"viewCartProduct";
+    }
+    
+    @RequestMapping(value="updateToCart",method=RequestMethod.POST)
+    public String updateToCart(@ModelAttribute(value="Cart") Cart cart)
+    {
+        productModel productmodel=new productModel();
+        productmodel.updateCart(cart);
+        return "updateCartSuccess";
+    }
 }
