@@ -18,11 +18,7 @@
                 <div class="col-md-6">
 
                     <div class="container-fluid">
-                        <% if( user_id >0){ %>
-                                      <%@include file="userMenubar.jsp" %>
-                                      <%}else{ %>
-                                        <%@include file="menubar.jsp" %>
-                                      <% } %>
+                        <%@include file="menubar.jsp" %>
                     </div>
 
                 </div>
@@ -76,7 +72,7 @@
                                                 <td>${cart.price}</td>
                                                 <td>${cart.quantity}</td>
                                                 <td>
-                                                    <a href="viewCartProduct?pid=${product.id}&cid=${cart.id}"><input class="btn btn-success" type="submit"  value="View Detail"/></a>
+                                                    <a href="viewCartProduct?pid=${product.id}"><input class="btn btn-success" type="submit"  value="View Detail"/></a>
                                                     <a href="cartDelete?cid=${cart.id}" onclick="return confirm('Are you sure?')"><input class="btn btn-success" type="submit"  value="Remove"/></a>
                                                 </td>
                                             </c:when>

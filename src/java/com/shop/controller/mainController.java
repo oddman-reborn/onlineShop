@@ -11,14 +11,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
-@SessionAttributes("session")
+
 @Controller
+@SessionAttributes({"session"})
+
 public class mainController {
 
     @RequestMapping({"/", "index"})
@@ -48,11 +51,15 @@ public class mainController {
         }
 
     }
-
-    @RequestMapping(value = "login")
-    public String login(@ModelAttribute(value = "login") login info, HttpServletRequest req,Model cmodel) {
+    @RequestMapping(value = "login",method=RequestMethod.GET)
+    public String viewIndex()
+    {
+        return "index";
+    }
+    @RequestMapping(value = "login",method=RequestMethod.POST)
+    public String login(@ModelAttribute(value = "login") login info, HttpServletRequest req) {
         boolean user_login = false;
-
+        HttpSession session;
         String email = info.getEmail();
         String password = info.getPassword();
 
@@ -64,11 +71,12 @@ public class mainController {
             user_login = model.userLogin(info);
             System.out.println(user_login);
             if (user_login == true) {
-                HttpSession session = req.getSession();
+                session = req.getSession(false);
+                session=req.getSession();
                 User user_info=model.getInfo(info);
                 String name=user_info.getName();
+                System.out.println("User Login");
                 session.setAttribute("session", user_info);
-                
                 return "index";
             } else {
                 return "noMatch";
@@ -78,8 +86,11 @@ public class mainController {
             user_login = model.adminLogin(info);
 
             if (user_login == true) {
-                HttpSession session=req.getSession();
+                session=req.getSession(false);
+                session=req.getSession();
                 Admin admin_info=model.getInfo(info);
+                String name=admin_info.getName();
+                System.out.println("Admin Login");
                 session.setAttribute("session", admin_info);
                 return "admin_dash";
             } else {
@@ -91,7 +102,7 @@ public class mainController {
     }
     
     @RequestMapping(value="logout")
-    public String logout()
+    public String logout(HttpServletRequest req)
     {
         return "logout";
     }

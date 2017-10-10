@@ -1,4 +1,6 @@
+<%@ include file = "head.jsp" %>
 <%
     session.invalidate();
-  response.sendRedirect("index");
+    user_id=0;
+    response.sendRedirect("index");
 %>

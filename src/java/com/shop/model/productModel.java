@@ -144,12 +144,14 @@ public class productModel {
      session.close();
  }
  
- public void updateCart(Cart cart)
+ public void updateCart(int quantity,int cid)
  {
      Session session=HibernateUtil.getSessionFactory().openSession();
      try{
          session.beginTransaction();
-         session.update(cart);
+         Cart temp=(Cart) session.load(Cart.class, cid);
+         temp.setQuantity(quantity);
+         session.update(temp);
          session.getTransaction().commit();
      }
      catch(Exception e)

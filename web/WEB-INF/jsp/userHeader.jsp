@@ -8,6 +8,10 @@
     <div class="col-md-6"></div>
     <div class="col-md-3">
 
+        <%if (user_id > 0) {%>
+        <p style="color:#449D44"><b><%= user.getName()%></b></p> 
+        <a href="logout" style="color:#449D44" >Log out</a>
+        <% } else {%>
         <form action="login" ModelAttribute="login" method="POST" >
             <input type="text" name="email" placeholder="E-mail" required></input>
             <input type="password" name="password" placeholder="Password" required></input>
@@ -15,5 +19,10 @@
         </form>
         <a href="userReg" style="color:#449D44" ><b>Register |</b> </a>   
         <a href="forgotPass" style="color:#449D44" ><b>Forgot Password </b></a>
+        <% }%>
+
+
+
+
     </div>	
 </div>

@@ -1,10 +1,3 @@
-<%@page import="com.shop.entity.Admin"%>
-<%
-    Admin admin_info= (Admin)session.getAttribute("session");
-    String role=admin_info.getRole();
-    if(!role.equals("Admin"))
-        response.sendRedirect("error");
-%>
 
 <div class="row" style="background-color:#222222">
 			<div class="col-md-3" >

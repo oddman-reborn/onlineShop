@@ -4,7 +4,11 @@
 
 <body>
 	<div class="container-fluid">
-		<%@include file="header.jsp" %>
+		<% if( user_id > 0){ %> 
+		<%@include file="userHeader.jsp" %>
+		<% }else {%>
+                    <%@include file="header.jsp" %>
+            <% } %>
 		
 		
 		<div class="row">
@@ -14,7 +18,11 @@
 			<div class="col-md-6">
 				
 				  <div class="container-fluid">
-                                      <%@include file="menubar.jsp" %>
+                                      <% if( user_id >0){ %>
+                                      <%@include file="userMenubar.jsp" %>
+                                      <%}else{ %>
+                                        <%@include file="menubar.jsp" %>
+                                      <% } %>
 				  </div>
 				
 			</div>

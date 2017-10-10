@@ -1,4 +1,4 @@
-<%@include file="header.jsp" %>
+<%@include file="head.jsp" %>
 <script type="text/javascript">
     window.alert("Updated product from Cart...");
 

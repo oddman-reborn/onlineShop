@@ -75,6 +75,12 @@ public class userController {
             return"loginError";
     }
     
+    @RequestMapping(value="userCart")
+    public String getId()
+    {
+        return "getUserId";
+    }
+    
     @RequestMapping(value="myCart",method=RequestMethod.GET)
     public String myCart(@RequestParam(value="userId") int userId,Model cart,Model pdetail)
     {
@@ -107,11 +113,12 @@ public class userController {
     }
     
     @RequestMapping(value="viewCartProduct",method=RequestMethod.GET)
-    public String viewCartProduct(@RequestParam(value="pid") int pid,Model model)
+    public String viewCartProduct(@RequestParam(value="pid") int pid,@RequestParam(value="cid") int cid,Model model)
     {
         productModel productmodel=new productModel();
         Product product=productmodel.getProductById(pid);
         model.addAttribute("product", product);
+        model.addAttribute("cid", cid);
         return"viewCartProduct";
     }
     
@@ -119,7 +126,9 @@ public class userController {
     public String updateToCart(@ModelAttribute(value="Cart") Cart cart)
     {
         productModel productmodel=new productModel();
-        productmodel.updateCart(cart);
+        int cid=cart.getId();
+        int quantity=cart.getQuantity();
+        productmodel.updateCart(quantity,cid);
         return "updateCartSuccess";
     }
 }

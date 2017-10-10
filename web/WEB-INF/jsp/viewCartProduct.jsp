@@ -4,8 +4,11 @@
 
 <body>
 	<div class="container-fluid">
-		<%@include file="header.jsp" %>
-		
+		<% if( user_id > 0){ %> 
+		<%@include file="userHeader.jsp" %>
+		<% }else {%>
+                    <%@include file="header.jsp" %>
+            <% } %>
 		
 		<div class="row">
 			<nav class="navbar navbar-inverse">
@@ -14,7 +17,11 @@
 			<div class="col-md-6">
 				
 				  <div class="container-fluid">
-                                      <%@include file="menubar.jsp" %>
+                                      <% if( user_id >0){ %>
+                                      <%@include file="userMenubar.jsp" %>
+                                      <%}else{ %>
+                                        <%@include file="menubar.jsp" %>
+                                      <% } %>
 				  </div>
 				
 			</div>
@@ -33,6 +40,7 @@
 			
 			
 			<div class="col-md-3">
+                            <%= user_id %>
                             <%@include file="search_social.jsp" %>
 			</div>
 			
@@ -61,10 +69,11 @@
                                             <option value="4">4</option>
                                             <option value="5">5</option>
                                         </select><br>
+                                        <input type="number" name="id" value="${cid}" hidden>
                                         <input type="number" name="productId" value="${product.id}" hidden>
                                         <input type="number" name="userId" value="<%= user_id %>" hidden>
                                         <input type="number" name="price" value="${product.price}" hidden>
-                                        <input style="width: 200px;" class="btn btn-success" type="submit" name="reg" value="Add to Cart"/><br><br>
+                                        <input style="width: 200px;" class="btn btn-success" type="submit" name="reg" value="Update Cart"/><br><br>
                                     </form>
                                     
                                 </div>
