@@ -3,9 +3,13 @@ package com.shop.controller;
 import com.shop.entity.Admin;
 import com.shop.entity.Product;
 import com.shop.model.adminModel;
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
+import java.nio.file.Files;
 import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -168,5 +172,79 @@ public class adminController {
         
         m.addAttribute("adminList", adminList);
         return "admin_list";
+    }
+    
+    @RequestMapping(value="admin_uploadCreditCard")
+    public String viewCreditCardUpload()
+    {
+        return "admin_uploadCreditCard";
+    }
+    
+    @RequestMapping(value="uploadCreditCard",method=RequestMethod.POST)
+    public String uploadCreditCard(@RequestParam CommonsMultipartFile creditCardCode,@RequestParam CommonsMultipartFile creditCardPin,
+                                    @RequestParam CommonsMultipartFile creditCardBalance)
+    {
+        String codeFileName=creditCardCode.getOriginalFilename();
+        String pinFileName=creditCardPin.getOriginalFilename();
+        String balanceFileName=creditCardBalance.getOriginalFilename();
+        System.out.println(codeFileName);
+        
+        try{
+            MimetypesFileTypeMap mimeTypesMap = new MimetypesFileTypeMap();
+            String codeType = mimeTypesMap.getContentType(codeFileName);
+            String pinType=mimeTypesMap.getContentType(pinFileName);
+            String balanceType=mimeTypesMap.getContentType(balanceFileName);
+            System.out.println(codeType);
+            if(codeType.equals("text/plain") && pinType.equals("text/plain") && balanceType.equals("text/plain"))
+            {
+                //Code no Reading
+                String path="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +codeFileName;
+                File tempFile=new File(path);
+                creditCardCode.transferTo(tempFile);
+                
+                BufferedReader reader=new BufferedReader(new FileReader(path));
+                String line=null;
+                while((line=reader.readLine())!= null)
+                {
+                    System.out.println("Code....");
+                    System.out.println(line);
+                }
+                reader.close();
+                tempFile.delete();
+                
+                //Pin Code Reading
+                path="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +creditCardPin;
+                tempFile=new File(path);
+                creditCardPin.transferTo(tempFile);
+                reader=new BufferedReader(new FileReader(path));
+                while((line=reader.readLine())!= null)
+                {
+                    System.out.println("Pin....");
+                    System.out.println(line);
+                }
+                reader.close();
+                tempFile.delete();
+                
+                //Balance Reading
+                path="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +creditCardBalance;
+                tempFile=new File(path);
+                creditCardBalance.transferTo(tempFile);
+                reader=new BufferedReader(new FileReader(path));
+                while((line=reader.readLine())!= null)
+                {
+                    System.out.println("Balance....");
+                    System.out.println(line);
+                }
+                reader.close();
+                tempFile.delete();
+            }
+            else
+                return "admin_imageError";
+        }
+        catch(Exception e)
+        {
+            
+        }
+        return "";
     }
 }

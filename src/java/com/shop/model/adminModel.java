@@ -278,4 +278,17 @@ public class adminModel {
         session.close();
         return adminList;
     }
+    
+    public void insertCreditCardCode(String line)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+    }
 }
