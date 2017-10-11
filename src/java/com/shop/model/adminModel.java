@@ -2,6 +2,7 @@
 package com.shop.model;
 
 import com.shop.entity.Admin;
+import com.shop.entity.CreditCard;
 import com.shop.entity.Product;
 import com.shop.entity.login;
 import java.util.List;
@@ -279,11 +280,13 @@ public class adminModel {
         return adminList;
     }
     
-    public void insertCreditCardCode(String line)
+    public void insertCreditCard(CreditCard card)
     {
         Session session=HibernateUtil.getSessionFactory().openSession();
         try{
-            
+            session.getTransaction();
+            session.save(card);
+            session.getTransaction().commit();
         }
         catch(Exception e)
         {

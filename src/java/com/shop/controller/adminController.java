@@ -1,6 +1,7 @@
 package com.shop.controller;
 
 import com.shop.entity.Admin;
+import com.shop.entity.CreditCard;
 import com.shop.entity.Product;
 import com.shop.model.adminModel;
 import java.io.BufferedReader;
@@ -198,45 +199,51 @@ public class adminController {
             if(codeType.equals("text/plain") && pinType.equals("text/plain") && balanceType.equals("text/plain"))
             {
                 //Code no Reading
-                String path="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +codeFileName;
-                File tempFile=new File(path);
-                creditCardCode.transferTo(tempFile);
+                String codepath="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +codeFileName;
+                String pinpath="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +pinFileName;
+                String balancepath="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +balanceFileName;
+               
+                File tempcodeFile=new File(codepath);
+                File temppinFile=new File(pinpath);
+                File tempbalanceFile=new File(balancepath);
                 
-                BufferedReader reader=new BufferedReader(new FileReader(path));
-                String line=null;
-                while((line=reader.readLine())!= null)
-                {
-                    System.out.println("Code....");
-                    System.out.println(line);
-                }
-                reader.close();
-                tempFile.delete();
+                creditCardCode.transferTo(tempcodeFile);
+                creditCardPin.transferTo(temppinFile);
+                creditCardBalance.transferTo(tempbalanceFile);
                 
-                //Pin Code Reading
-                path="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +creditCardPin;
-                tempFile=new File(path);
-                creditCardPin.transferTo(tempFile);
-                reader=new BufferedReader(new FileReader(path));
-                while((line=reader.readLine())!= null)
-                {
-                    System.out.println("Pin....");
-                    System.out.println(line);
-                }
-                reader.close();
-                tempFile.delete();
+                BufferedReader codeReader=new BufferedReader(new FileReader(codepath));
+                BufferedReader pinReader=new BufferedReader(new FileReader(pinpath));
+                BufferedReader balanceReader=new BufferedReader(new FileReader(balancepath));
                 
-                //Balance Reading
-                path="E:\\Programming Practice\\JSP\\onlineShop\\web\\resources\\temp\\" +creditCardBalance;
-                tempFile=new File(path);
-                creditCardBalance.transferTo(tempFile);
-                reader=new BufferedReader(new FileReader(path));
-                while((line=reader.readLine())!= null)
+                String code=null;
+                String pin=null;
+                String balance=null;
+                
+                CreditCard card=new CreditCard();
+                adminModel admin=new adminModel();
+                while(((code=codeReader.readLine())!= null) && ((pin=pinReader.readLine())!=null) && ((balance=balanceReader.readLine())!=null))
                 {
-                    System.out.println("Balance....");
-                    System.out.println(line);
+                    int i=0;
+                    System.out.println(i++);
+                    card.setCode(code);
+                    card.setPin(pin);
+                    int blnc=Integer.parseInt(balance);
+                    card.setBalance(blnc);
+                    
+                    System.out.println(code);
+                    System.out.println(pin);
+                    System.out.println(blnc);
+                    System.out.println(" ");
+                    admin.insertCreditCard(card);
                 }
-                reader.close();
-                tempFile.delete();
+                codeReader.close();
+                pinReader.close();
+                balanceReader.close();
+                
+                tempcodeFile.delete();
+                temppinFile.delete();
+                tempbalanceFile.delete();
+                
             }
             else
                 return "admin_imageError";
