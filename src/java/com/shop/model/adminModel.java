@@ -284,7 +284,7 @@ public class adminModel {
     {
         Session session=HibernateUtil.getSessionFactory().openSession();
         try{
-            session.getTransaction();
+            session.beginTransaction();
             session.save(card);
             session.getTransaction().commit();
         }

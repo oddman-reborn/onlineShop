@@ -2,14 +2,14 @@
 		<nav class="navbar navbar-inverse">
 			<div class="col-md-3">
 				<div class="footer_address">
-					<p><b>Travel Agency</b></p>
+					<p><b>Computer Shop</b></p>
 					<p>Rabiul Market,Block:c,Stall no:223</p>
 				</div>
 			</div>
 			<div class="col-md-6">
 			
 				<div class="container-fluid">
-                                    <%@include file="menubar.jsp" %>
+                                    <%@include file="admin_menubar.jsp" %>
 				 </div>
 			
 			</div>

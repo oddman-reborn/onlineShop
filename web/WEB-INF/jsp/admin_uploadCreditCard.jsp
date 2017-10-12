@@ -26,8 +26,12 @@
 
 			<div class="col-md-12">
 			<div class="main_view">
-				<h2>Admin Dash</h2>
-                                <h4 style="color:#449D44;text-align: center;border-top: 50px;">
+				<h2>Upload Credit Card</h2>
+                                <div class="col-md-3">
+                                    
+                                </div>
+                                <div class="col-md-6" style="background-color: #122b40">
+                                    <p>Choose Text(.txt) File Only</p>
                                     <form class="form-horizontal" role="form" action="uploadCreditCard" method="POST" enctype="multipart/form-data">
                                         <label>Select File for Code no List:</label>
                                         <input type="file" name="creditCardCode" class="form-control" id="focusedInput" required>
@@ -35,12 +39,15 @@
                                         <input type="file" name="creditCardPin" class="form-control" id="focusedInput" required>
                                         <label>Select File for Balance List :</label>
                                         <input type="file" name="creditCardBalance" class="form-control" id="focusedInput" required>
-                                        
+                                        <br>
                                         <input type="submit" class="btn btn-success" value="Upload">
                                         
                                     </form>
-                                </h4>
-                                
+                                    <br>
+                                </div>
+                                <div class="col-md-3">
+                                    
+                                </div>
 			</div>
 			</div>
 			

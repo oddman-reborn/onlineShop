@@ -196,6 +196,8 @@ public class adminController {
             String pinType=mimeTypesMap.getContentType(pinFileName);
             String balanceType=mimeTypesMap.getContentType(balanceFileName);
             System.out.println(codeType);
+            System.out.println(pinType);
+            System.out.println(balanceType);
             if(codeType.equals("text/plain") && pinType.equals("text/plain") && balanceType.equals("text/plain"))
             {
                 //Code no Reading
@@ -219,22 +221,19 @@ public class adminController {
                 String pin=null;
                 String balance=null;
                 
-                CreditCard card=new CreditCard();
-                adminModel admin=new adminModel();
+                
                 while(((code=codeReader.readLine())!= null) && ((pin=pinReader.readLine())!=null) && ((balance=balanceReader.readLine())!=null))
                 {
                     int i=0;
+                    CreditCard card=new CreditCard();
+                    adminModel admin=new adminModel();
                     System.out.println(i++);
                     card.setCode(code);
                     card.setPin(pin);
-                    int blnc=Integer.parseInt(balance);
-                    card.setBalance(blnc);
-                    
-                    System.out.println(code);
-                    System.out.println(pin);
-                    System.out.println(blnc);
-                    System.out.println(" ");
+                    card.setBalance(balance);
+                    card.setStatus(0);
                     admin.insertCreditCard(card);
+                    
                 }
                 codeReader.close();
                 pinReader.close();
@@ -250,8 +249,9 @@ public class adminController {
         }
         catch(Exception e)
         {
-            
+            e.printStackTrace();
+            return "noMatch";
         }
-        return "";
+        return "admin_dash";
     }
 }

@@ -1,5 +1,5 @@
 package com.shop.entity;
-// Generated Oct 11, 2017 11:31:36 PM by Hibernate Tools 4.3.1
+// Generated Oct 12, 2017 10:46:56 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -22,13 +22,13 @@ public class CreditCard  implements java.io.Serializable {
      private Integer id;
      private String code;
      private String pin;
-     private int balance;
+     private String balance;
      private int status;
 
     public CreditCard() {
     }
 
-    public CreditCard(String code, String pin, int balance, int status) {
+    public CreditCard(String code, String pin, String balance, int status) {
        this.code = code;
        this.pin = pin;
        this.balance = balance;
@@ -68,12 +68,12 @@ public class CreditCard  implements java.io.Serializable {
     }
 
     
-    @Column(name="balance", nullable=false)
-    public int getBalance() {
+    @Column(name="balance", nullable=false, length=10)
+    public String getBalance() {
         return this.balance;
     }
     
-    public void setBalance(int balance) {
+    public void setBalance(String balance) {
         this.balance = balance;
     }
 
