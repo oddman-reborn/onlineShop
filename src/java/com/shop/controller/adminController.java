@@ -252,6 +252,6 @@ public class adminController {
             e.printStackTrace();
             return "noMatch";
         }
-        return "admin_dash";
+        return "admin_success";
     }
 }
