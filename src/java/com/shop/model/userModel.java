@@ -5,7 +5,10 @@
  */
 package com.shop.model;
 
+import com.shop.entity.CreditCard;
+import com.shop.entity.Recharge;
 import com.shop.entity.User;
+import com.shop.entity.UserBalance;
 import com.shop.entity.login;
 import java.util.List;
 import org.hibernate.Query;
@@ -118,5 +121,76 @@ public class userModel {
         }
         session.close();
         return user_info;
+    }
+    
+    public boolean checkCreditCard(Recharge rechargeCard)
+    {
+        boolean valid=false;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction();
+            String hql="from CreditCard where code=? and pin=?";
+            String code=rechargeCard.getCode();
+            String pin=rechargeCard.getPin();
+            Query query=session.createQuery(hql);
+            query.setString(0, code);
+            query.setString(1, pin);
+            session.getTransaction();
+            List<CreditCard> creditCard=query.list();
+            
+            if(creditCard.size()==1)
+            {
+                if(creditCard.get(0).getStatus()==0)
+                    valid=true;
+            }
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return valid;
+    }
+    
+    public int getCreditCardBalance(Recharge card)
+    {
+        int balance=0;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            String code=card.getCode();
+            String pin=card.getPin();
+            
+            String hql="from CreditCard where code=? and pin=?";
+            Query query=session.createQuery(hql);
+            query.setString(0, code);
+            query.setString(1, pin);
+            session.getTransaction();
+            CreditCard tempCard=(CreditCard) query.uniqueResult();
+            balance=Integer.parseInt(tempCard.getBalance());
+            
+        }
+        catch (Exception e)
+        {
+            session.close();
+        }
+        session.close();
+        return balance;
+    }
+    
+    public void insertUserBalance(UserBalance addBalance)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            session.save(addBalance);
+            session.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
     }
 }

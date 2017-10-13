@@ -100,8 +100,11 @@ public class adminController {
                 try {
                     File destination = new File(imagePath);
                     file.transferTo(destination);
+                    String tempDirectory="E:\\Programming Practice\\JSP\\onlineShop\\web\\"+product.getImagePath();
+                    File tempImage=new File(tempDirectory);
                     product.setImagePath("resources\\product_image\\" + fileName);
                     model.updateProduct(product);
+                    tempImage.delete();
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

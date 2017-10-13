@@ -45,9 +45,11 @@ Contributor(s):
     <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
     <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/shop?zeroDateTimeBehavior=convertToNull</property>
     <property name="hibernate.connection.username">root</property>
+    <mapping class="com.shop.entity.Recharge"/>
     <mapping class="com.shop.entity.Admin"/>
     <mapping class="com.shop.entity.CreditCard"/>
     <mapping class="com.shop.entity.Cart"/>
+    <mapping class="com.shop.entity.UserBalance"/>
     <mapping class="com.shop.entity.Product"/>
     <mapping class="com.shop.entity.User"/>
     <mapping class="com.shop.entity.login"/>

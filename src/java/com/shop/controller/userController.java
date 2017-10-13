@@ -3,11 +3,17 @@ package com.shop.controller;
 
 import com.shop.entity.Cart;
 import com.shop.entity.Product;
+import com.shop.entity.Recharge;
 import com.shop.entity.User;
+import com.shop.entity.UserBalance;
 import com.shop.entity.login;
 import com.shop.model.HibernateUtil;
 import com.shop.model.productModel;
+import com.shop.model.userModel;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -130,5 +136,42 @@ public class userController {
         int quantity=cart.getQuantity();
         productmodel.updateCart(quantity,cid);
         return "updateCartSuccess";
+    }
+    
+    @RequestMapping(value="userRecharge")
+    public String viewRecharge()
+    {
+        return "userRecharge";
+    }
+    
+    @RequestMapping(value="userRecharge",method=RequestMethod.POST)
+    public String recharge(@ModelAttribute(value="Rcharge") Recharge Rcharge)
+    {
+        boolean valid=false;
+        
+        userModel umodel=new userModel();
+        valid=umodel.checkCreditCard(Rcharge);
+        
+        if(valid==true)
+        {
+            int balanceAmount=umodel.getCreditCardBalance(Rcharge);
+            Date d = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String date = dateFormat.format(d);
+            
+            UserBalance addBalance=new UserBalance();
+            
+            addBalance.setUserId(Rcharge.getUid());
+            addBalance.setCredit(balanceAmount);
+            addBalance.setDate(date);
+            addBalance.setDebit(0);
+            addBalance.setProductId("0");
+            
+            umodel.insertUserBalance(addBalance);
+        }
+        else
+            return "UserRechargeError";
+        
+        return "UserRechargeSuccess";
     }
 }
