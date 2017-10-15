@@ -170,6 +170,10 @@ public class userModel {
             CreditCard tempCard=(CreditCard) query.uniqueResult();
             balance=Integer.parseInt(tempCard.getBalance());
             
+            tempCard.setStatus(1);
+            session.update(tempCard);
+            session.getTransaction().commit();
+            
         }
         catch (Exception e)
         {
@@ -192,5 +196,23 @@ public class userModel {
             session.getTransaction().rollback();
         }
         session.close();
+    }
+    
+    public void invalidateCreditCard(String code,String pin)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try
+        {
+            session.beginTransaction();
+            String hql="from CreditCard where code=? and pin=?";
+            Query query=session.createQuery(hql);
+            query.setString(0, code);
+            query.setString(1, pin);
+            session.getTransaction();
+        }
+        catch(Exception e)
+        {
+            
+        }
     }
 }

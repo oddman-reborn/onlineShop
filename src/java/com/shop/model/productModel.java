@@ -92,9 +92,10 @@ public class productModel {
      Session session=HibernateUtil.getSessionFactory().openSession();
      try{
          session.beginTransaction();
-         String hql="from Cart where userId=?";
+         String hql="from Cart where userId=? and orderStatus=?";
          Query query=session.createQuery(hql);
          query.setInteger(0, userId);
+         query.setInteger(1, 0);/*orderStatus=1 means added to orderList */
          session.getTransaction();
          userCart=query.list();
      }
@@ -151,6 +152,61 @@ public class productModel {
          session.beginTransaction();
          Cart temp=(Cart) session.load(Cart.class, cid);
          temp.setQuantity(quantity);
+         session.update(temp);
+         session.getTransaction().commit();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+ }
+ 
+ public void cartToOrder(int cid)
+ {
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         Cart temp=(Cart)session.load(Cart.class, cid);
+         temp.setOrderStatus(1);
+         session.update(temp);
+         session.getTransaction().commit();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+ }
+ 
+ public List<Cart> getOrdereList(int uid)
+ {
+     List<Cart> plist=null;
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         String hql="from Cart where userId=? and orderStatus=?";
+         Query query=session.createQuery(hql);
+         query.setInteger(0, uid);
+         query.setInteger(1,1);
+         session.getTransaction();
+         plist=query.list();
+     }
+     catch(Exception e)
+     {
+         session.getTransaction().rollback();
+     }
+     session.close();
+     return plist;
+ }
+ 
+ public void orderToCart(int cid)
+ {
+     Session session=HibernateUtil.getSessionFactory().openSession();
+     try{
+         session.beginTransaction();
+         Cart temp=(Cart)session.load(Cart.class, cid);
+         temp.setOrderStatus(0);
          session.update(temp);
          session.getTransaction().commit();
      }

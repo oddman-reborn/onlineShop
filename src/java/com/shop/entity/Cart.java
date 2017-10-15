@@ -1,5 +1,5 @@
 package com.shop.entity;
-// Generated Oct 12, 2017 2:11:43 PM by Hibernate Tools 4.3.1
+// Generated Oct 15, 2017 6:54:40 AM by Hibernate Tools 4.3.1
 
 
 import javax.persistence.Column;
@@ -24,15 +24,17 @@ public class Cart  implements java.io.Serializable {
      private int productId;
      private int price;
      private int quantity;
+     private int orderStatus;
 
     public Cart() {
     }
 
-    public Cart(int userId, int productId, int price, int quantity) {
+    public Cart(int userId, int productId, int price, int quantity, int orderStatus) {
        this.userId = userId;
        this.productId = productId;
        this.price = price;
        this.quantity = quantity;
+       this.orderStatus = orderStatus;
     }
    
      @Id @GeneratedValue(strategy=IDENTITY)
@@ -85,6 +87,16 @@ public class Cart  implements java.io.Serializable {
     
     public void setQuantity(int quantity) {
         this.quantity = quantity;
+    }
+
+    
+    @Column(name="order_status", nullable=false)
+    public int getOrderStatus() {
+        return this.orderStatus;
+    }
+    
+    public void setOrderStatus(int orderStatus) {
+        this.orderStatus = orderStatus;
     }
 
 

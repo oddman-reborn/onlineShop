@@ -56,7 +56,7 @@
 
             <div class="col-md-10">
                 <div class="main_view">
-                    <h2>My Cart</h2>
+                    <h2>Order List</h2>
                     <div class="main_view" style="background-color: #E8E9EB">
                         <table class="table table-hover">
                             <tr>
@@ -78,7 +78,7 @@
                                                 <td>
                                                     <a href="viewCartProduct?pid=${product.id}&cid=${cart.id}"><input class="btn btn-success" type="submit"  value="View Detail"/></a>
                                                     <a href="cartDelete?cid=${cart.id}" onclick="return confirm('Are you sure?')"><input class="btn btn-success" type="submit"  value="Remove"/></a>
-                                                    <a href="addToOrder?cid=${cart.id}" ><input class="btn btn-success" type="submit"  value="Add to Order List"/></a>
+                                                    <a href="moveToCart?cid=${cart.id}" ><input class="btn btn-success" type="submit"  value="Move into Cart"/></a>
                                                 </td>
                                             </c:when>
                                         </c:choose>
@@ -89,6 +89,10 @@
 
 
                         </table>
+                        
+                        <div class="form-horizontal">
+                            
+                        </div>
                     </div>
                 </div>
             </div>

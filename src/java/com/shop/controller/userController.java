@@ -168,10 +168,51 @@ public class userController {
             addBalance.setProductId("0");
             
             umodel.insertUserBalance(addBalance);
+            
         }
         else
             return "UserRechargeError";
         
         return "UserRechargeSuccess";
+    }
+    
+    @RequestMapping(value="addToOrder",method=RequestMethod.GET)
+    public String addToOrderList(@RequestParam(value="cid") int cid)
+    {
+        productModel pmodel=new productModel();
+        pmodel.cartToOrder(cid);
+        return "orderListSuccess";
+    }
+    
+    @RequestMapping(value="myOrderList",method=RequestMethod.GET)
+    public String viewOrderList(@RequestParam(value="userId") int userId,Model olist,Model pdetail)
+    {
+        List<Cart> userCart=new ArrayList();
+        List<Product> productDetail=new ArrayList();
+        if(userId>0)
+        {
+            productModel productmodel=new productModel();
+            
+            userCart=productmodel.getOrdereList(userId);
+            for(int i=0;i< userCart.size();i++)
+            {
+                int pid=userCart.get(i).getProductId();
+                Product product=productmodel.getProductById(pid);
+                productDetail.add(product);
+            }
+            olist.addAttribute("userCart", userCart);
+            pdetail.addAttribute("productDetail", productDetail);
+            return"myOrderList";
+        }
+        return"loginError";
+    }
+    
+    
+    @RequestMapping(value="moveToCart",method=RequestMethod.GET)
+    public String moveIntoCart(@RequestParam(value="cid") int cid)
+    {
+        productModel pmodel=new productModel();
+        pmodel.orderToCart(cid);
+        return "CartListSuccess";
     }
 }

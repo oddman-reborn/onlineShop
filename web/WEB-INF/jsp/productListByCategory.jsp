@@ -69,7 +69,7 @@
                                             </td>
                                             <td>
                                                 <a href="viewByProduct?pid=${product.id}"><input class="btn btn-success" type="submit"  value="View Details"/></a>
-                                                <a href="addToCart?pid=${product.id}"><img src="resources\images\addtocart-green.png" style="width: 280px" /></a>
+                                                
                                             </td>
                                         </tr>
                                     </table>

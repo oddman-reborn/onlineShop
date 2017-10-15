@@ -61,6 +61,7 @@
                                 <div class="col-md-4">
                                     <img src="${product.imagePath}" style="height: 330px;width: 330px;">
                                     <form action="addToCart" ModelAttribute="Cart" method="POST">
+                                        <input name="orderStatus" value="0" hidden>
                                         <label>Quantity: </label>
                                         <select name="quantity"  id="focusedInput" required>
                                             <option value="1">1</option>
