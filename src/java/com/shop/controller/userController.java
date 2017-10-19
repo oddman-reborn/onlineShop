@@ -2,11 +2,13 @@
 package com.shop.controller;
 
 import com.shop.entity.Cart;
+import com.shop.entity.OrderList;
 import com.shop.entity.Product;
 import com.shop.entity.Recharge;
 import com.shop.entity.User;
 import com.shop.entity.UserBalance;
 import com.shop.entity.login;
+import com.shop.entity.orderInfo;
 import com.shop.model.HibernateUtil;
 import com.shop.model.productModel;
 import com.shop.model.userModel;
@@ -192,18 +194,32 @@ public class userController {
         if(userId>0)
         {
             productModel productmodel=new productModel();
-            
-            userCart=productmodel.getOrdereList(userId);
+            userCart=productmodel.getOrderedList(userId);
             for(int i=0;i< userCart.size();i++)
             {
                 int pid=userCart.get(i).getProductId();
                 Product product=productmodel.getProductById(pid);
                 productDetail.add(product);
             }
+            userModel umodel=new userModel();
+            int credit=umodel.getUserCredit(userId);
+            int debit=umodel.getUserDebit(userId);
+            credit=credit-debit;
+            int cost=0;
+            List<Cart> costList=umodel.getOrderCost(userId);
+            for(int i=0;costList.size()>i;i++)
+            {
+                int tempPrice=costList.get(i).getPrice();
+                int tempQuantity=costList.get(i).getQuantity();
+                cost=cost+(tempPrice*tempQuantity);
+            }
             olist.addAttribute("userCart", userCart);
             pdetail.addAttribute("productDetail", productDetail);
+            olist.addAttribute("credit", credit);
+            olist.addAttribute("cost", cost);
             return"myOrderList";
         }
+
         return"loginError";
     }
     
@@ -214,5 +230,68 @@ public class userController {
         productModel pmodel=new productModel();
         pmodel.orderToCart(cid);
         return "CartListSuccess";
+    }
+    
+    @RequestMapping(value="userPlaceOrder",method=RequestMethod.POST)
+    public String userPlaceOrder(@ModelAttribute(value="orderInfo") orderInfo orderinfo,@RequestParam(value="userId") int uid,
+            @RequestParam(value="credit") int credit,@RequestParam(value="cost") int cost)
+    {
+        productModel pmodel=new productModel();
+        
+        List<Cart> orderProduct=pmodel.getOrderedList(uid);
+        if(orderProduct.size()>0)
+        {
+            
+            if(credit >= cost)
+            {
+                OrderList order=new OrderList();
+                for(int i=0; i<orderProduct.size();i++)
+                {
+                    order.setUserId(uid);
+                    order.setProductId(orderProduct.get(i).getProductId());
+                    order.setQuantity(orderProduct.get(i).getQuantity());
+                    order.setDeliveryType(orderinfo.getDeliveryType());
+                    order.setAddress(orderinfo.getAddress());
+                    order.setContactNo(orderinfo.getContactNo());
+                    order.setPrice(orderProduct.get(i).getPrice());
+                    order.setName(orderinfo.getName());
+                    Date d = new Date();
+                    DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    String date = dateFormat.format(d);
+                    order.setDate(date);
+                    order.setStatus(0);/* Status 0=placed,1=Accepted,2=delivered*/
+                    
+                    userModel umodel=new userModel();
+                    umodel.placeOrder(order);
+                    pmodel.deleteCart(orderProduct.get(i).getId());
+                    
+                    UserBalance ubalance=new UserBalance();
+                    ubalance.setCredit(0);
+                    ubalance.setDate(date);
+                    int debit=(orderProduct.get(i).getPrice()) * (orderProduct.get(i).getQuantity());
+                    ubalance.setDebit(debit);
+                    int pid=orderProduct.get(i).getProductId();
+                    ubalance.setProductId(Integer.toString(pid));
+                    ubalance.setUserId(uid);
+                    
+                    umodel.insertUserBalance(ubalance);
+                    pmodel.deleteCart(orderProduct.get(i).getId());
+                }
+            }
+            else
+                return "notEnoughBalance";
+        }
+        else
+            return "noProductInOrderList";
+        return "orderSuccess";
+    }
+    
+    @RequestMapping(value="myAccount")
+    public String userAccount(@RequestParam(value="userId") int uid,Model model)
+    {
+        userModel umodel=new userModel();
+        List<UserBalance> history=umodel.getAccountHistory(uid);
+        model.addAttribute("history", history);
+        return "myAccount";
     }
 }

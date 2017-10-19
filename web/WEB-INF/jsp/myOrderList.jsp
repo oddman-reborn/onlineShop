@@ -89,9 +89,34 @@
 
 
                         </table>
+                        <h4>Total Balance : ${credit}</h4>
+                        <h4>Total Cost : ${cost}</h4>
                         
-                        <div class="form-horizontal">
-                            
+                        <div class="form-horizontal" >
+                            <h2>Oreder Deatils</h2>
+                            <hr style="border-top: 1px solid #4cae4c">
+                            <div class="col-md-2" ></div>
+                            <div class="col-md-6" style="background-color: #121E31">
+                                <form action="userPlaceOrder" class="form-horizontal" modelAttribute="orderInfo" method="POST" >
+                                    <input type="number" name="userId" value="<%= user_id %>" hidden>
+                                    <input type="number" name="credit" value="${credit}" hidden>
+                                    <input type="number" name="cost" value="${cost}" hidden>
+                                <label>Name:</label><input type="text" name="name"  class="form-control" id="focusedInput" required>
+                                <label>Contact Mo:</label><input type="number" name="contactNo" class="form-control" id="focusedInput" required>
+                                <label>Address</label><input type="text" name="address" class="form-control" id="focusedInput" required>
+                                <label>Delivery Type</label>
+                                <select name="deliveryType" class="form-control" id="focusedInput" required>
+                                    <option value=""></option>
+                                    <option value="Home Delivery">Home Delivery</option>
+                                    <option value="By Mail">By Mail</option>
+                                    <option value="Come in person">Come in person</option>
+                                </select>
+                                <br>
+                                <input type="submit" class="btn btn-success" value="Place Order"><br><br>
+                                
+                            </form>
+                            </div>
+                            <div class="col-md-2"></div>
                         </div>
                     </div>
                 </div>

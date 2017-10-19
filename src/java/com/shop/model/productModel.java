@@ -179,7 +179,7 @@ public class productModel {
      session.close();
  }
  
- public List<Cart> getOrdereList(int uid)
+ public List<Cart> getOrderedList(int uid)
  {
      List<Cart> plist=null;
      Session session=HibernateUtil.getSessionFactory().openSession();
