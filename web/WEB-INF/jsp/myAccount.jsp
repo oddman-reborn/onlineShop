@@ -56,6 +56,22 @@
 			<div class="col-md-10">
 			<div class="main_view">
 				<h2>Account History</h2>
+                                <table class="table table-hover">
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Recharge</th>
+                                        <th>Purchase Cost</th>
+                                        <th>Purchased Product ID</th>
+                                    </tr>
+                                    <c:forEach items="${history}" var="h">
+                                        <tr>
+                                            <td>${h.date}</td>
+                                            <td>${h.credit}</td>
+                                            <td>${h.debit}</td>
+                                            <td>${h.productId}</td>
+                                        </tr>
+                                    </c:forEach>
+                                </table>
                                 
 			</div>
 			</div>

@@ -8,18 +8,19 @@
 
 
         <div class="row">
-            <nav class="navbar navbar-inverse">
-                <div class="col-md-3"></div>
+			<nav class="navbar navbar-inverse">
+			<div class="col-md-2"></div>
+			
+			<div class="col-md-10">
+				
+				  <div class="container-fluid">
+                                      <%@include file="admin_menubar.jsp" %>
+				  </div>
+				
+			</div>
+			</nav>
 
-                <div class="col-md-6">
-
-                    <div class="container-fluid">
-                        <%@include file="admin_menubar.jsp" %>
-                    </div>
-
-                </div>
-            </nav>
-        </div>
+		</div>
         <div class="row" style="background-color: #4CAF50;color: white">
             <div class="col-md-3">
                 <form action="admin_searchById" method="POST">

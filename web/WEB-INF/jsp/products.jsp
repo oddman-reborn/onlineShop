@@ -58,7 +58,7 @@
                     <c:forEach items="${category}" var="cat"><br>
                         <div class="panel panel-defaul" style="background-color: #FFFCDD;border-style: solid;border-color: #449D44;">
                             <div class="panel-heading">
-                                <h4>${cat}<h4></div>
+                                <h4>${cat}</h4></div>
                                         <div class="panel-body" >
                                             <c:forEach items="${productList}" var="p" end="3">
                                                 <ul class="product" style="list-style: none;">

@@ -2,12 +2,15 @@ package com.shop.controller;
 
 import com.shop.entity.Admin;
 import com.shop.entity.CreditCard;
+import com.shop.entity.OrderList;
 import com.shop.entity.Product;
 import com.shop.model.adminModel;
+import com.shop.model.productModel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.nio.file.Files;
+import java.util.ArrayList;
 import java.util.List;
 import javax.activation.MimetypesFileTypeMap;
 import org.springframework.core.io.FileSystemResource;
@@ -198,9 +201,7 @@ public class adminController {
             String codeType = mimeTypesMap.getContentType(codeFileName);
             String pinType=mimeTypesMap.getContentType(pinFileName);
             String balanceType=mimeTypesMap.getContentType(balanceFileName);
-            System.out.println(codeType);
-            System.out.println(pinType);
-            System.out.println(balanceType);
+
             if(codeType.equals("text/plain") && pinType.equals("text/plain") && balanceType.equals("text/plain"))
             {
                 //Code no Reading
@@ -256,5 +257,99 @@ public class adminController {
             return "noMatch";
         }
         return "admin_success";
+    }
+    
+    @RequestMapping(value="admin_orderList")
+    public String viewOrderList(Model model)
+    {
+        adminModel amodel=new adminModel();
+        List<OrderList> orderList=amodel.getOrderList();
+        productModel pmodel=new productModel();
+        List<Product> productInfo=new ArrayList();
+        
+        for(int i=0;orderList.size()>i;i++)
+        {
+            int pid=orderList.get(i).getProductId();
+            Product product=pmodel.getProductById(pid);
+            productInfo.add(product);
+        }
+        model.addAttribute("productInfo", productInfo);
+        model.addAttribute("orderList", orderList);
+        return "admin_orderList";
+    }
+    
+    @RequestMapping(value="orderAccept",method=RequestMethod.GET)
+    public String orderAccept(@RequestParam(value="oid") int oid)
+    {
+        adminModel amodel=new adminModel();
+        amodel.orderAccept(oid);
+        OrderList order=amodel.getOrderInfo(oid);
+        int pid=order.getProductId();
+        int quantity=order.getQuantity();
+        
+        Product product=amodel.getProductDetailById(pid);
+        int unitAvailable=product.getUnitAvailable();
+        quantity=unitAvailable-quantity;
+        product.setUnitAvailable(quantity);
+        amodel.updateProduct(product);
+        return "admin_orderAcceptSuccess";
+    }
+    
+    @RequestMapping(value="orderReject",method=RequestMethod.GET)
+    public String orderReject(@RequestParam(value="oid") int oid)
+    {
+        adminModel amodel=new adminModel();
+        OrderList order=amodel.orderReject(oid);
+        amodel.userRefund(order);
+        return "admin_orderRejectSuccess";
+    }
+    
+    @RequestMapping(value="searchByOrderId",method=RequestMethod.POST)
+    public String searchByOrderId(@RequestParam(value="oid") int oid,Model model)
+    {
+        adminModel amodel=new adminModel();
+        List<OrderList> orderList=new ArrayList();
+        OrderList order=amodel.getOrderInfo(oid);
+        orderList.add(order);
+        int pid=order.getProductId();
+        List<Product> productInfo=amodel.getProductById(pid);
+        model.addAttribute("productInfo", productInfo);
+        model.addAttribute("orderList", orderList);
+        return "admin_orderList";
+    }
+    
+    @RequestMapping(value="searchByStatus",method=RequestMethod.POST)
+    public String searchByStatus(@RequestParam(value="status") String status,Model model)
+    {
+        int statusValue;
+        adminModel amodel=new adminModel();
+        List<OrderList> orderList=new ArrayList();
+        if(status.equals("All"))
+        {
+            orderList=amodel.getOrderList();
+        }
+        else if(status.equals("All Pending"))
+        {
+            orderList=amodel.getPendingOrderList();
+        }
+        else if(status.equals("All Accepted"))
+        {
+            orderList=amodel.getAcceptedOrderList();
+        }
+        else{
+            orderList=amodel.getDeliveredOrderList();
+        }    
+        List<Product> productInfo=new ArrayList();
+        productModel pmodel=new productModel();
+        for(int i=0;orderList.size()>i;i++)
+        {
+            int pid=orderList.get(i).getProductId();
+            Product product=pmodel.getProductById(pid);
+            productInfo.add(product);
+        }
+        
+        model.addAttribute("productInfo", productInfo);
+        model.addAttribute("orderList", orderList);
+        return "admin_orderList";
     }
 }

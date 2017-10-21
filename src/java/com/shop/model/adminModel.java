@@ -3,8 +3,14 @@ package com.shop.model;
 
 import com.shop.entity.Admin;
 import com.shop.entity.CreditCard;
+import com.shop.entity.OrderList;
 import com.shop.entity.Product;
+import com.shop.entity.UserBalance;
 import com.shop.entity.login;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
@@ -293,5 +299,165 @@ public class adminModel {
             session.getTransaction().rollback();
         }
         session.close();
+    }
+    
+    public List<OrderList> getOrderList()
+    {
+        List<OrderList> oList=null;
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            Criteria criteria=session.createCriteria(OrderList.class);
+            oList=criteria.list();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        return oList;
+    }
+    
+    public void orderAccept(int oid)
+    {
+       
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            OrderList order=(OrderList) session.load(OrderList.class,oid);
+            order.setStatus(1);
+            session.update(order);
+            
+            session.getTransaction().commit();
+            
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+        
+    }
+    
+    public OrderList orderReject(int oid)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        OrderList order=new OrderList();
+        try{
+            session.beginTransaction();
+            order=(OrderList) session.load(OrderList.class, oid);
+            session.delete(order);
+            session.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+            order=null;
+        }
+        session.close();
+        return order;
+    }
+    
+    public void userRefund(OrderList order)
+    {
+        UserBalance ubalance=new UserBalance();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            int pid=order.getProductId();
+            int uid=order.getUserId();
+            int price=order.getPrice();
+
+            String productId=pid+"(Refund)";
+            ubalance.setProductId(productId);
+            ubalance.setUserId(uid);
+            ubalance.setCredit(price);
+            ubalance.setDebit(0);
+            Date d = new Date();
+            DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            String date = dateFormat.format(d);
+            ubalance.setDate(date);
+            session.save(ubalance);
+            session.getTransaction().commit();
+            
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+            ubalance=null;
+        }
+        session.close();
+    }
+    
+    public OrderList getOrderInfo(int oid)
+    {
+        OrderList order=new OrderList();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            order=(OrderList) session.get(OrderList.class, oid);
+            session.getTransaction();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+            order=null;
+        }
+        session.close();
+        return order;
+    }
+    
+    public List<OrderList> getPendingOrderList()
+    {
+        List<OrderList> orderList=new ArrayList();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            String hql="from OrderList where status='0'";
+            Query query=session.createQuery(hql);
+            session.getTransaction();
+            orderList=query.list();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        return orderList;
+    }
+    
+    public List<OrderList> getAcceptedOrderList()
+    {
+        List<OrderList> orderList=new ArrayList();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            String hql="from OrderList where status='1'";
+            Query query=session.createQuery(hql);
+            session.getTransaction();
+            orderList=query.list();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        return orderList;
+    }
+    
+    public List<OrderList> getDeliveredOrderList()
+    {
+        List<OrderList> orderList=new ArrayList();
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            String hql="from OrderList where status='2'";
+            Query query=session.createQuery(hql);
+            session.getTransaction();
+            orderList=query.list();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        return orderList;
     }
 }

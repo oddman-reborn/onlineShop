@@ -253,13 +253,14 @@ public class userController {
                     order.setDeliveryType(orderinfo.getDeliveryType());
                     order.setAddress(orderinfo.getAddress());
                     order.setContactNo(orderinfo.getContactNo());
-                    order.setPrice(orderProduct.get(i).getPrice());
+                    int debit=(orderProduct.get(i).getPrice()) * (orderProduct.get(i).getQuantity());
+                    order.setPrice(debit);
                     order.setName(orderinfo.getName());
                     Date d = new Date();
                     DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
                     String date = dateFormat.format(d);
                     order.setDate(date);
-                    order.setStatus(0);/* Status 0=placed,1=Accepted,2=delivered*/
+                    order.setStatus(0);/* Status 0=placed,1=Accepted,2=delivered , 3=delete+refund*/
                     
                     userModel umodel=new userModel();
                     umodel.placeOrder(order);
@@ -268,7 +269,7 @@ public class userController {
                     UserBalance ubalance=new UserBalance();
                     ubalance.setCredit(0);
                     ubalance.setDate(date);
-                    int debit=(orderProduct.get(i).getPrice()) * (orderProduct.get(i).getQuantity());
+                    
                     ubalance.setDebit(debit);
                     int pid=orderProduct.get(i).getProductId();
                     ubalance.setProductId(Integer.toString(pid));
@@ -286,7 +287,7 @@ public class userController {
         return "orderSuccess";
     }
     
-    @RequestMapping(value="myAccount")
+    @RequestMapping(value="myAccount",method=RequestMethod.GET)
     public String userAccount(@RequestParam(value="userId") int uid,Model model)
     {
         userModel umodel=new userModel();
