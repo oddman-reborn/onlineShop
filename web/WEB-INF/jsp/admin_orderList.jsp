@@ -95,12 +95,15 @@
 
                                             </td>
                                             <td>
-                                                <c:if test="${order.status != '1'}">
+                                                <c:if test="${order.status != '1' && order.status!=2}">
                                                     <a href="orderAccept?oid=${order.id}"><input type="submit" value="Accept" class="btn btn-success" > </a>
                                                 </c:if>
 
                                                 <c:if test="${order.status != 2}">
                                                     <a href="orderReject?oid=${order.id}" onclick="return confirm('Are you sure?')"><input type="submit" value="Reject" class="btn btn-success" > </a>
+                                                </c:if>
+                                                <c:if test="${order.status !=3 && order.status==1}">
+                                                    <a href="confirmDelivery?oid=${order.id}" onclick="return confirm('Are you sure?')"><input type="submit" value="Confirm Delivery" class="btn btn-success" > </a>  
                                                 </c:if>
                                                     
                                             </td>

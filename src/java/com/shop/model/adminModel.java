@@ -460,4 +460,21 @@ public class adminModel {
         }
         return orderList;
     }
+    
+    public void orderConfirmDelivery(int oid)
+    {
+        Session session=HibernateUtil.getSessionFactory().openSession();
+        try{
+            session.beginTransaction();
+            OrderList order=(OrderList) session.load(OrderList.class, oid);
+            order.setStatus(2);
+            session.update(order);
+            session.getTransaction().commit();
+        }
+        catch(Exception e)
+        {
+            session.getTransaction().rollback();
+        }
+        session.close();
+    }
 }

@@ -16,9 +16,9 @@
 
         <div class="row">
             <nav class="navbar navbar-inverse">
-                <div class="col-md-3"></div>
-
-                <div class="col-md-6">
+                <div class="col-md-2"></div>
+			
+			<div class="col-md-7">
 
                     <div class="container-fluid">
                         <% if( user_id >0){ %>

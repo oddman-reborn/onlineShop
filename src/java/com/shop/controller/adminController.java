@@ -258,7 +258,7 @@ public class adminController {
         }
         return "admin_success";
     }
-    
+    /* Status 0=placed,1=Accepted,2=delivered , 3=delete+refund*/
     @RequestMapping(value="admin_orderList")
     public String viewOrderList(Model model)
     {
@@ -350,6 +350,15 @@ public class adminController {
         
         model.addAttribute("productInfo", productInfo);
         model.addAttribute("orderList", orderList);
+        return "admin_orderList";
+    }
+    
+    @RequestMapping(value="confirmDelivery")
+    public String confirmDelivery(@RequestParam(value="oid") int oid)
+    {
+        adminModel amodel=new adminModel();
+        amodel.orderConfirmDelivery(oid);
+        
         return "admin_orderList";
     }
 }

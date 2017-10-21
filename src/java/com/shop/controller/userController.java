@@ -44,6 +44,14 @@ public class userController {
         category.add("Electronic goods");
         category.add("Computer(Desktop)");
         category.add("Computer(Laptop)");
+        category.add("MotherBoard");
+        category.add("PC Casing");
+        category.add("Hard Disk");
+        category.add("Monitor");
+        category.add("Mouse");
+        category.add("KeyBoard");
+        
+        
         cat.addAttribute("category", category);
         product.addAttribute("productList", productList);
         return "products";

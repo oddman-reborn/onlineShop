@@ -6,7 +6,6 @@
         <li><a href="admin_orderList"><p><b>Order List</b></p></a></li>
         <li><a href="admin_register"><p><b>Register Admin</b></p></a></li>
         <li><a href="admin_list"><p><b>Admin List</b></p></a></li>
-        <li><a href="admin_delivery"><p><b>Delivery</b></p></a></li>
         <li><a href="admin_uploadCreditCard"><p><b>Upload Credit Card</b></p></a></li>
     </ul>
 </div>
